@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<h1>{{teamName}} photos!</h1>
+{{#each photos}}
+  <h3>{{title}}</h3><br>
+  <p>{{date}}</p>
+  <p>{{path}}</p>
+  <p>{{photographer}}</p>
+  <p>{{location}}</p><br>
+  <p>{{caption}}</p><br>
+{{/each}}
+
+<form action="/photoUpload"
+      class="dropzone"
+      id="myDropzone">
+</form>
