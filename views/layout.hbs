@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <!-- Bootstrap -->
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+         <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" type="text/css" href="/sweetalert2/sweetalert2.css">
+        <link rel="stylesheet" href="/style.css">
+
+        <!-- Scripts -->
+        <script src="/sweetalert2/sweetalert2.js"></script>
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+        <script src="/app.js"></script>
+
+        <!-- Browser Icon  -->
+        <link rel="icon" href="/cutlery.png">
+    </head>
+    <body>
+        {{#if session.user}}
+            <a href="/logout">Logout</a>
+        {{/if}}
+        {{{body}}}
+    </body>
+</html>

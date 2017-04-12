@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<h1>Create new team</h1>
+
+<form action="/team/submitNew" method="POST" class="newTeam">
+    <div class="form-group">
+        <label>Team Name:</label>
+        <input type="text" class="form-control teamName" name = "teamName">
+    </div>
+
+    <div class="form-group">
+        <label>Assistant Coach:</label>
+        <input type="text" class="form-control astCoach" name = "astCoach">
+    </div>
+
+    <div class="form-group">
+        <label>Category:</label>
+        <input type="text" class="form-control category" name = "category">
+    </div>
+
+    <div class="form-group">
+        <label>Description:</label>
+        <input type="text" class="form-control description" name = "description">
+    </div>
+
+    <input type="submit" name="submit" value="Submit">
+
+    <br>
+</form>

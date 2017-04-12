@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<h1>User Home</h1>
+<p>Hello {{session.user}}</p>
+<h3>Teams:</h3>
+<br>
+{{#each teams}}
+    <h4><a href="/team/{{id}}">{{teamname}}</a></h4>
+    <!-- <p>Category: {{category}}</p>
+    <p>Address: {{address}}</p> -->
+    <br>
+{{/each}}
+
+<a href="/createTeam">Create Team</a>
+<button type="button" name="button" class="joinTeamButton">Join Team</button>

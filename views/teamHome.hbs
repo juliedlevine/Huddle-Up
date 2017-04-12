@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<h1>Team Home</h1>
+{{#if coach}}
+<p>TeamCode: {{teamcode}}</p>
+{{/if}}
+
+<p>Team description {{description}}</p>
+<p>Team astcoach {{astcoach}}</p>
+<p>Team coachFirst {{coachFirst}}</p>
+<p>Team coachLast {{coachLast}}</p>
+
+
+<a href="/roster/{{id}}">Roster</a>
+<a href="/events/{{id}}">Events</a>
+<a href="/messages/{{id}}">Messages</a>
