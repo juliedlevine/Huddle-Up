@@ -1,2 +1,28 @@
 <!DOCTYPE html>
-<h1>messages</h1>
+<h3>{{teamName}} Message Board:</h3>
+
+{{#each messages}}
+    <p>{{date}}</p>
+    <p>{{time}}</p>
+    <p>{{firstname}} {{ lastname}}</p>
+    <p>{{title}}</p>
+    <p>{{message}}</p>
+    <br>
+{{/each}}
+
+
+<form method="POST" class="new_message">
+    <div class="form-group">
+        <label>Title: </label>
+        <input type="text" name="title" class="form-control title">
+    </div>
+
+    <div class="form-group">
+        <label>Message: </label>
+        <textarea type="textarea" name="message" class="form-control message" rows="4" cols="50"></textarea>
+    </div>
+
+    <button type="button" name="button" id="createMessageButton">Submit</button>
+
+    <br>
+</form>

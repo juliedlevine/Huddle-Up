@@ -121,7 +121,6 @@ app.get('/userHome', function(req, res) {
         on childuserteam.parent = parent.id
         where parent.id = $1;`,req.session.userId)
         .then(function(results){
-            console.log(results);
             res.render('userHome.hbs',{
                 teams:results,
                 id:results.id
@@ -130,7 +129,6 @@ app.get('/userHome', function(req, res) {
         .catch(function(err){
             console.log(err.message);
         });
-
 });
 
 // Create team
@@ -147,8 +145,6 @@ app.post('/joinTeam', function(req, res) {
         return db.none(`insert into childuserteam values($1,$2,$3, default);`,[req.session.userId, teamid.id, childName]);
     })
     .then(function(){
-        console.log('in redirect userHome');
-        // res.redirect('/userHome');
         res.send('match');
     })
     .catch(function(err){
@@ -156,11 +152,10 @@ app.post('/joinTeam', function(req, res) {
     });
 });
 
-// Team home page route path
+// Team Home page
 app.get('/team/:id', function(req, res, next) {
     let id = req.params.id;
     req.session.teamId = id;
-    console.log("team home session id: "+ req.session.teamId);
     db.one(`
         select teamname, coachid, description,teamcode, astcoach, parent.firstname, parent.lastname
         from team
@@ -171,7 +166,6 @@ app.get('/team/:id', function(req, res, next) {
         if (req.session.userId === results.coachid){
             isCoach = true;
         }
-
         res.render('teamHome.hbs', {
             team: results.teamname,
             description: results.description,
@@ -180,13 +174,14 @@ app.get('/team/:id', function(req, res, next) {
             coachFirst: results.firstname,
             coachLast: results.lastname,
             coach: isCoach,
-            id:id
+            id: id
         });
     });
 
 
 });
 
+// Team Roster
 app.get('/roster/:id', function(req, res, next) {
     let id = req.params.id;
         db.any(`select childname, firstname, lastname, cellphone, homephone, email from childuserteam
@@ -201,44 +196,47 @@ app.get('/roster/:id', function(req, res, next) {
         });
     });
 
-    //database query
-    //an each in handlebars
-    //basic hbs page
-
 });
-//
+
+// Team Events page
 app.get('/events/:id', function(req, res, next) {
     var id = req.params.id;
-    db.any(`
-        SELECT
-        	*
-        FROM
-        	events
-        JOIN
-        	team on events.teamid = team.id
-        WHERE
-        	team.id = $1
-        `, id)
-    .then(function(results){
-        var isCoach = false;
-        if (req.session.userId === results[0].coachid){
-            isCoach = true;
-        }
-        res.render('events.hbs', {
-            events:results,
-            coach: isCoach
+    db.one(`SELECT teamname, coachid FROM team WHERE team.id = $1`, id)
+        .then(function(teamInfo) {
+            return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1`, id)];
+        })
+        .spread(function(teamInfo, results) {
+            var isCoach = false;
+            if (req.session.userId === teamInfo.coachid) {
+                isCoach = true;
+            }
+            res.render('events.hbs', {
+                teamName: teamInfo.teamname,
+                events: results,
+                coach: isCoach
+            });
+        })
+        .catch(function(err){
+            console.log(err.message);
         });
-    })
-    .catch(function(err){
-        console.log(err.message);
-    });
-
 });
 
+// Team Messages page
 app.get('/messages/:id', function(req, res, next) {
-    res.render('messages.hbs', {
-        // DATA
-    });
+    var id = req.params.id;
+    db.one(`select teamname from team where team.id = $1`, id)
+        .then(function(teamName) {
+            return [teamName, db.any(`SELECT * FROM messages JOIN team on messages.teamid = team.id join parent on parent.id = messages.sender WHERE team.id = $1`, id)];
+        })
+        .spread(function(teamName, results) {
+            res.render('messages.hbs', {
+                teamName: teamName.teamname,
+                messages: results
+            });
+        })
+        .catch(function(err){
+            console.log(err.message);
+        });
 });
 
 // Form Submit - add new team route path
@@ -271,9 +269,8 @@ app.post('/team/submitNew', function(req, res, next) {
         })
         .catch(next);
 });
-//
-//
-// // Form submit - add event (visible to coach) route path
+
+// Form submit - add new event (visible to coach) route path
 app.post('/team/createEvent', function(req, res, next) {
     var id = req.session.teamId;
     let title = req.body.title;
@@ -282,7 +279,6 @@ app.post('/team/createEvent', function(req, res, next) {
     let endTime = req.body.endTime + ':00';
     let location = req.body.location;
     let comments = req.body.comments;
-    console.log(comments);
     db.none(`
     insert into events values(
     default, $1, $2, $3, $4, $5, $6, $7)`,[title, date, startTime, endTime, location, comments, id])
@@ -295,21 +291,18 @@ app.post('/team/createEvent', function(req, res, next) {
     });
 });
 
-//
-// // Form submit - add message
-// app.post('/team/addMessage:id', function(req, res, next) {
-//     var id = // FROM SESSION - change session team id when you go to a new team page
-//     let sender = req.body.sender;
-//     let date = req.body.date;
-//     let content = req.body.content;
-//     // db.one(`insert into review values (default, $1, $2, $3, $4, $5) returning review.restaurant_id`, [req.session.userId, stars, title, review, id])
-//     // NEEDED
-//     // same as variables
-//         .then(function(result) {
-//             res.redirect('/messages/' + id);
-//         })
-//         .catch(next);
-// });
+// Form submit - add new message route path (visible to all)
+app.post('/team/addMessage', function(req, res, next) {
+    let id = req.session.teamId;
+    let sender = req.session.userId;
+    let title = req.body.title;
+    let message = req.body.message;
+    db.none(`insert into messages values (default, $1, $2, $3, $4, default, default)`, [sender, title, message, id])
+        .then(function() {
+            res.send('successMsg');
+        })
+        .catch(next);
+});
 
 
 // Start server

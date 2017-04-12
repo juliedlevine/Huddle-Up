@@ -1,21 +1,4 @@
 $(document).ready(function() {
-    console.log("Huddle up!");
-
-    $('.joinTeam').click(function() {
-        $.ajax({
-            url: '/joinTeam',
-            type: 'POST',
-            data: {
-                code: $('.code').val(),
-                child: $('.childName').val()
-            }
-        })
-        .then(function(response) {
-            if (response === 'joinTeam') {
-                window.location.href = '/userHome';
-            }
-        });
-    });
 
     function check(response) {
         if (response === 'match') {
@@ -48,23 +31,49 @@ $(document).ready(function() {
                 type: "error",
                 confirmButtonText: "Cool"
             });
-        }else if (response === 'success'){
+        } else if (response === 'successMsg') {
+            swal({
+                title: "Success!",
+                text: "Message posted!",
+                type: "success",
+                confirmButtonText: "Cool"
+            }).then(function() {
+                location.reload();
+            });
+        } else if (response === 'success') {
             swal({
                 title: "Success!",
                 text: "Event Created",
                 type: "success",
                 confirmButtonText: "Cool"
-            }).then(function(){
-                // window.location.href = '/teamHome';
+            }).then(function() {
                 location.reload();
             });
         }
 
     }
 
+    $('#createMessageButton').click(function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: "/team/addMessage",
+            type: "POST",
+            data: {
+                title: $('.title').val(),
+                message: $('.message').val(),
+            }
+        })
+        .then(function(response) {
+            check(response);
+
+        })
+        .catch(function(err) {
+            console.log(err.message);
+        });
+    });
+
     $('#submitLogin').click(function(event) {
         event.preventDefault();
-        console.log('were in teh function');
         $.ajax({
             url: "/submitLogin",
             type: "POST",
@@ -157,9 +166,6 @@ $(document).ready(function() {
             showCancelButton: false
         }).then(function() {
             swal.resetDefaults();
-
-            // Ajax
-            console.log('we are here');
             $.ajax({
                 url: "/joinTeam",
                 type: "POST",
@@ -175,9 +181,7 @@ $(document).ready(function() {
                 console.log(err.message);
             });
         });
-
       });
   });
-
 
 });
