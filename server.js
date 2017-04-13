@@ -54,7 +54,6 @@ app.post('/submitLogin', function(req, res, next) {
     var password = req.body.password;
     db.one("SELECT id, firstname, email, password FROM parent WHERE email ilike $1", email)
         .then(function(loginDetails) {
-            console.log('Login details:  ' + loginDetails);
             return [loginDetails, bcrypt.compare(password, loginDetails.password)];
         })
         .spread(function(loginDetails, matched) {
