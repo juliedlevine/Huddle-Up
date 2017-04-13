@@ -276,3 +276,15 @@ tr:nth-child(even) {
     display: block;
     margin-bottom: 40px;
 }
+
+
+/****************************
+        TEAM NAVIGATION BAR
+ *****************************/
+.teamNav ul {
+    list-style-type: none;
+}
+.teamNav li {
+    display: inline-block;
+    padding: 10px;
+}

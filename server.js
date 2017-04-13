@@ -193,14 +193,16 @@ app.get('/team/:id', function(req, res, next) {
 // Team Roster
 app.get('/roster/:id', function(req, res, next) {
     let id = req.params.id;
-        db.any(`select childname, firstname, lastname, cellphone, homephone, email from childuserteam
-        join team
+        db.any(`select team.teamname, childname, firstname, lastname, cellphone, homephone, email
+        from team
+        left outer join childuserteam
         on team.id = childuserteam.teamid
-        join parent
+        left outer join parent
         on parent.id = childuserteam.parent
         where team.id = $1;`, id)
     .then(function(results){
         res.render('roster.hbs', {
+            team: results[0].teamname,
             roster: results
         });
     });
@@ -274,7 +276,11 @@ app.post('/team/submitNew', function(req, res, next) {
     let teamCode = genCode();
     db.one("insert into team values(default, $1, $2, $3, $4, $5) returning team.id as id", [teamName, req.session.userId, astCoach, teamCode, description])
         .then(function(result) {
-            res.redirect('/team/' + result.id);
+            var response = {
+                message: 'successTeam',
+                id: result.id
+            };
+            res.send(response);
         })
         .catch(next);
 });

@@ -40,6 +40,16 @@ $(document).ready(function() {
             }).then(function() {
                 location.reload();
             });
+        } else if (response.message === 'successTeam') {
+            swal({
+                title: "Success!",
+                text: "Team Created!",
+                type: "success",
+                confirmButtonText: "Cool"
+            }).then(function() {
+                var teamId = response.id;
+                window.location.href = '/team/' + teamId;
+            });
         } else if (response === 'success') {
             swal({
                 title: "Success!",
@@ -53,25 +63,7 @@ $(document).ready(function() {
 
     }
 
-    // $('#createMessageButton').click(function(event) {
-    //     event.preventDefault();
-    //     $.ajax({
-    //         url: "/team/addMessage",
-    //         type: "POST",
-    //         data: {
-    //             title: $('.title').val(),
-    //             message: $('.message').val(),
-    //         }
-    //     })
-    //     .then(function(response) {
-    //         check(response);
-    //
-    //     })
-    //     .catch(function(err) {
-    //         console.log(err.message);
-    //     });
-    // });
-
+    // Submit login button click
     $('#submitLogin').click(function(event) {
         event.preventDefault();
         $.ajax({
@@ -92,6 +84,7 @@ $(document).ready(function() {
         });
     });
 
+    // Sign up button click
     $('#signUpButton').click(function() {
         $.ajax({
             url: "/signUp",
@@ -114,6 +107,7 @@ $(document).ready(function() {
         });
     });
 
+    // Create event button click
     $('#createEventButton').click(function(event){
         event.preventDefault();
         $.ajax({
@@ -136,6 +130,7 @@ $(document).ready(function() {
         });
     });
 
+    // Join team button click
     $('.joinTeamButton').click(function() {
         swal.setDefaults({
           input: 'text',
@@ -184,12 +179,14 @@ $(document).ready(function() {
           });
       });
 
+    // Send group text message button click
     $('#sendGroupTextMessage').click(function(event) {
         event.preventDefault();
         var teamId = $(this).attr('data-team-id');
         sendGroupTextMessage(teamId);
     });
 
+    // Send group text message function call
     function sendGroupTextMessage(teamId){
       // var teamId = $(this).attr('data-team-id');
       console.log('teamid: ' + teamId);
@@ -231,7 +228,7 @@ $(document).ready(function() {
 
     }
 
-    // Add message button
+    // Add message button click
     $('#createMessageButton').click(function() {
         swal({
         title: 'Add a new Message',
@@ -259,6 +256,42 @@ $(document).ready(function() {
       }).catch(function(err) {
           console.log(err.message);
       });
-  });
+    });
+
+    // Create Team button click
+    $('#createTeamButton').click(function() {
+        swal({
+        title: 'Create a Team',
+        showCancelButton: true,
+        html:
+            '<label>Team Name:</label>' +
+            '<input id="swal-input1" class="swal2-input teamName">' +
+            '<label>Category:</label>' +
+            '<input id="swal-input1" class="swal2-input category">' +
+            '<label>Assistant Coach:</label>' +
+            '<input id="swal-input1" class="swal2-input astCoach">' +
+            '<label>Description:</label>' +
+            '<input id="swal-input1" class="swal2-input description">'
+        }).then(function() {
+            $.ajax({
+                url: "/team/submitNew",
+                type: "POST",
+                data: {
+                    teamName: $('.teamName').val(),
+                    category: $('.category').val(),
+                    astCoach: $('.astCoach').val(),
+                    description: $('.description').val()
+                }
+            })
+            .then(function(response) {
+                check(response);
+            })
+            .catch(function(err) {
+                console.log(err.message);
+            });
+      }).catch(function(err) {
+          console.log(err.message);
+      });
+    });
 
 });
