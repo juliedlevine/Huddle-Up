@@ -215,6 +215,7 @@ app.get('/events/:id', function(req, res, next) {
             return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1`, id)];
         })
         .spread(function(teamInfo, results) {
+            results.forEach(function(item){item.date = item.date.toDateString();item.starttime = fixTime(item.starttime);item.endtime = fixTime(item.endtime);});
             var isCoach = false;
             if (req.session.userId === teamInfo.coachid) {
                 isCoach = true;
@@ -238,6 +239,7 @@ app.get('/messages/:id', function(req, res, next) {
             return [teamName, db.any(`SELECT * FROM messages JOIN team on messages.teamid = team.id join parent on parent.id = messages.sender WHERE team.id = $1`, id)];
         })
         .spread(function(teamName, results) {
+            results.forEach(function(item){item.date = item.date.toDateString();item.time = fixTime(item.time);});
             res.render('messages.hbs', {
                 teamName: teamName.teamname,
                 messages: results
@@ -341,6 +343,19 @@ app.post('/sendTextMessage', function(req, res) {
     res.send('success');
 
 });
+
+function fixTime(time){
+  var hours = parseInt(time.substring(0,2));
+  var period = " AM";
+  if (hours > 12){
+    period = " PM";
+    hours = hours - 12;
+  }
+
+  time = hours + ":" + time.substring(3,5) + period;
+  return time;
+
+}
 
 // Start server
 app.listen(3000, function() {
