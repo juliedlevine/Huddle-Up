@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-
-
 <div class="nav navUser">
     <h3 id="logo">HuddleUp</h3>
     <div class="welcome">
@@ -19,7 +17,11 @@
     <h3 class="myTeams">My Teams:</h3>
     <div class="teams">
         {{#each teams}}
-            <h4><a href="/team/{{id}}">{{teamname}}</a></h4>
+            <h4><a href="/team/{{id}}">child's team: {{teamname}}</a></h4>
+        {{/each}}
+
+        {{#each coachteams}}
+            <h4><a href="/team/{{coachid}}">coaching team: {{teamname}}</a></h4>
         {{/each}}
     </div>
     <div class="teamButtons">

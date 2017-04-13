@@ -114,22 +114,25 @@ app.use(function authentication(req, res, next) {
 // User home
 app.get('/userHome', function(req, res) {
     db.any(`
-      select distinct team.teamname, team.id
-from
-team
-inner join(
-select distinct teamname as team_name, team.id as team_id
-      from team
-      join childuserteam
-      on team.id = childuserteam.teamid
-      join parent
-      on childuserteam.parent = parent.id
-      where parent.id = $1)as withchild
-      on team.coachid = $1`,req.session.userId)
-        .then(function(results){
+        select distinct teamname, team.id
+        from team
+        join childuserteam
+        on team.id = childuserteam.teamid
+        join parent
+        on childuserteam.parent = parent.id
+        where parent.id = $1;`,req.session.userId)
+        .then(function(childresult){
+          return [childresult, db.any(`select distinct teamname, team.id
+          from
+          team
+          where coachid = $1`, req.session.userId)];
+        })
+        .spread(function(childresults, coachresults){
             res.render('userHome.hbs',{
-                teams:results,
-                id:results.id
+                teams:childresults,
+                id:childresults.id,
+                coachteams: coachresults,
+                coachid: coachresults.id
             });
         })
         .catch(function(err){
