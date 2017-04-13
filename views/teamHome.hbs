@@ -14,3 +14,7 @@
 <a href="/roster/{{id}}">Roster</a>
 <a href="/events/{{id}}">Events</a>
 <a href="/messages/{{id}}">Messages</a>
+{{#if coach}}
+<br>
+<a href="javascript:void(0)" data-team-id="{{id}}" id="sendGroupTextMessage">Send Group Text Message</a>
+{{/if}}

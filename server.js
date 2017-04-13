@@ -10,6 +10,8 @@ const db = pgp({
 });
 const session = require('express-session');
 const bcrypt = require('bcrypt');
+var twilioConfig = require('./config/twilio-config.js');
+var twilioClient = twilioConfig.twilioClient;
 app.set('view engine', 'hbs');
 app.use(session({
     secret: 'hippo1234',
@@ -178,7 +180,6 @@ app.get('/team/:id', function(req, res, next) {
         });
     });
 
-
 });
 
 // Team Roster
@@ -304,6 +305,34 @@ app.post('/team/addMessage', function(req, res, next) {
         .catch(next);
 });
 
+// Ajax request to send a Team Text Message
+app.post('/sendTextMessage', function(req, res) {
+    var teamId = req.body.teamId;
+    var textMessage = req.body.textMessage;
+    var testNumbers = ['+14049315804','+14049315804'];
+    testNumbers.forEach(function(cellPhoneNumber){
+      twilioClient.sms.messages.create({
+          to:cellPhoneNumber,
+          from:'+16786662282',
+          body: textMessage
+      }, function(error, message) {
+
+          if (!error) {
+              // res.send('success');
+              console.log('Success! The SID for this SMS message is:');
+              console.log(message.sid);
+              console.log('Message sent on:');
+              console.log(message.dateCreated);
+          } else {
+              console.log('Oops! There was an error.');
+              // res.send('failure');
+          }
+      });
+
+    });
+    res.send('success');
+
+});
 
 // Start server
 app.listen(3000, function() {

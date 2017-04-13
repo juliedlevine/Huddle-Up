@@ -143,7 +143,7 @@ $(document).ready(function() {
           showCancelButton: true,
           animation: false,
           progressSteps: ['1', '2']
-      });
+        });
         var steps = [
           {
             title: 'Team Code',
@@ -153,7 +153,7 @@ $(document).ready(function() {
             title: "Child's Name",
             text: "Enter your child's name."
           },
-      ];
+        ];
         swal.queue(steps).then(function (result) {
             var teamCode = result[0];
             var childName = result[1];
@@ -164,24 +164,66 @@ $(document).ready(function() {
               'Enjoy the Season!',
             confirmButtonText: 'Great!',
             showCancelButton: false
-        }).then(function() {
-            swal.resetDefaults();
-            $.ajax({
-                url: "/joinTeam",
-                type: "POST",
-                data: {
-                    teamCode: teamCode,
-                    childName: childName
-                }
-            })
-            .then(function(response) {
-                check(response);
-            })
-            .catch(function(err) {
-                console.log(err.message);
+          }).then(function() {
+              swal.resetDefaults();
+              $.ajax({
+                  url: "/joinTeam",
+                  type: "POST",
+                  data: {
+                      teamCode: teamCode,
+                      childName: childName
+                  }
+              })
+              .then(function(response) {
+                  check(response);
+              })
+              .catch(function(err) {
+                  console.log(err.message);
+              });
             });
-        });
+          });
       });
-  });
+
+    $('#sendGroupTextMessage').click(function(event) {
+        event.preventDefault();
+        var teamId = $(this).attr('data-team-id');
+        sendGroupTextMessage(teamId);
+    });
+
+    function sendGroupTextMessage(teamId){
+      // var teamId = $(this).attr('data-team-id');
+      console.log('teamid: ' + teamId);
+      swal({
+          title: 'Enter Message to Text the Team',
+          input: 'text',
+          showCancelButton: true,
+          confirmButtonText: 'Submit',
+          showLoaderOnConfirm: true,
+          allowOutsideClick: false
+        })
+        .then(function(messageToSend){
+          console.log("ok sending the text now");
+          console.log("sending: " + messageToSend);
+          return $.ajax({
+              url: "/sendTextMessage",
+              type: "POST",
+              data: {
+                  teamId: teamId,
+                  textMessage: messageToSend
+              }
+          });
+        })
+        .then(function (outcome) {
+          console.log("sendTextMessage response: " + outcome);
+          swal({
+            type: 'success',
+            title: 'Text message sent!',
+          });
+        }).
+        catch(function(err){
+          console.log(err.message);
+        });
+
+    }
 
 });
