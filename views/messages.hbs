@@ -12,6 +12,18 @@
 <div class="background">
 </div>
 
+<div class="teamNav">
+    <ul>
+        <li><a href="/userHome">Home</a></li>
+        <li><a href="/roster/{{id}}">Roster</a></li>
+        <li><a href="/events/{{id}}">Events</a></li>
+        <li><a href="/messages/{{id}}">Messages</a></li>
+        {{#if coach}}
+        <li><a href="javascript:void(0)" data-team-id="{{id}}" id="sendGroupTextMessage">Send Group Text</a></li>
+        {{/if}}
+    </ul>
+</div>
+
 <h3 class="myTeams messageHeader">{{teamName}} Message Board:</h3>
 <div class="messageBoard">
     {{#each messages}}
