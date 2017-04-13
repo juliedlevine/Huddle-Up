@@ -53,7 +53,7 @@ $(document).ready(function() {
 
     }
 
-  var thumb = $('#thumb');	
+  var thumb = $('#thumb');
   new AjaxUpload('imageUpload', {
     action: $('#newHotnessForm').attr('action'),
     name: 'image',
