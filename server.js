@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-// const dropzone = require('dropzone');
+// const Dropzone = require('dropzone');
 const express = require('express');
 var multer = require('multer');
 var upload = multer({dest: 'photos/'});
@@ -20,8 +20,8 @@ app.use(session({
         maxAge: 600000000}
 }));
 
-// Dropzone.options.myDropzone = {
-//   acceptedFiles: 'image/png,image/jpg,image/jpeg'
+// Dropzone.options.myDropZone = {
+//   //
 // };
 
 // Serve up public files at root
