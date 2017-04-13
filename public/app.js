@@ -1,21 +1,5 @@
 $(document).ready(function() {
 
-  var Dropzone = require("dropzone");
-  
-  Dropzone.autoDiscover = false;
-  Dropzone.options.myDropZone = {
-    paramName: 'file',
-    maxFilesize: 2, // MB
-    maxFiles: 1,
-    dictDefaultMessage: 'Drag an image here to upload, or click to select one',
-    acceptedFiles: 'image/*',
-    accept: function(file, done) {
-      file.acceptDimensions = done;
-      file.rejectDimensions = function() {
-        done('The image must be at least 640 x 480px')
-      };
-    }
-}
 
 
     function check(response) {

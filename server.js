@@ -1,5 +1,4 @@
-/*jshint esversion: 6 */
-var Dropzone = require("dropzone");
+
 const express = require('express');
 var multer = require('multer');
 var upload = multer({dest: 'photos/'});
@@ -13,7 +12,6 @@ const db = pgp({
 });
 const session = require('express-session');
 const bcrypt = require('bcrypt');
-var Dropzone = require('dropzone');
 app.set('view engine', 'hbs');
 app.use(session({
     secret: 'hippo1234',
@@ -21,9 +19,7 @@ app.use(session({
         maxAge: 600000000}
 }));
 
-// Dropzone.options.myDropZone = {
-//   //
-// };
+
 
 // Serve up public files at root
 app.use(express.static('public'));
@@ -248,24 +244,25 @@ app.get('/messages/:id', function(req, res, next) {
 
 //Team Photos page
 app.get('/photos/:id', function(req, res, next) {
-    var id = req.params.id;
-    // db.one(`select teamname from team where team.id = $1`, id)
-    //     .then(function(teamName) {
-    //         return [teamName, db.any(`SELECT * FROM messages JOIN team on messages.teamid = team.id join parent on parent.id = messages.sender WHERE team.id = $1`, id)];
-    //     })
-          // .spread(function(teamName, results) {
-            res.render('photos.hbs', {
-                // teamName: teamName.teamname,
-                // messages: results
-            });
-        // })
-        // .catch(function(err){
-        //     console.log(err.message);
-        // });
+  db.any(
+    select path, parentId, date
+    from photo
+    where teamId = req.session.teamId
+  )
+  res.render('photos.hbs');
 });
+
 //Photo upload
 app.post('/photoUpload', upload.single('file'), function(req, res, next) {
-  console.log(req.file);
+  var id = req.body.id;
+  console.log((req.file.path+(req.file.originalname).slice(req.file.originalname.length-4,req.file.originalname.length)));
+    db.none(`insert into photo values (default,$1,$2,$3,$4,now())`,[req.session.teamId, req.session.userId, req.file.path+(req.file.originalname).slice(req.file.originalname.length-4,req.file.originalname.length), req.file.originalname])
+    .then(function(){
+      res.send('success');
+    })
+  .catch(function(err){
+      console.log(err.message);
+  });
 });
 
 // Form Submit - add new team route path
