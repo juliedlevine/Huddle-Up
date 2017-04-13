@@ -53,28 +53,27 @@ $(document).ready(function() {
 
     }
 
-    $('#createMessageButton').click(function(event) {
-        event.preventDefault();
-        $.ajax({
-            url: "/team/addMessage",
-            type: "POST",
-            data: {
-                title: $('.title').val(),
-                message: $('.message').val(),
-            }
-        })
-        .then(function(response) {
-            check(response);
-
-        })
-        .catch(function(err) {
-            console.log(err.message);
-        });
-    });
+    // $('#createMessageButton').click(function(event) {
+    //     event.preventDefault();
+    //     $.ajax({
+    //         url: "/team/addMessage",
+    //         type: "POST",
+    //         data: {
+    //             title: $('.title').val(),
+    //             message: $('.message').val(),
+    //         }
+    //     })
+    //     .then(function(response) {
+    //         check(response);
+    //
+    //     })
+    //     .catch(function(err) {
+    //         console.log(err.message);
+    //     });
+    // });
 
     $('#submitLogin').click(function(event) {
         event.preventDefault();
-        console.log("We are here")
         $.ajax({
             url: "/submitLogin",
             type: "POST",
@@ -231,5 +230,35 @@ $(document).ready(function() {
         });
 
     }
+
+    // Add message button
+    $('#createMessageButton').click(function() {
+        swal({
+        title: 'Add a new Message',
+        showCancelButton: true,
+        html:
+            '<label>Title:</label>' +
+            '<input id="swal-input1" class="swal2-input title">' +
+            '<label>Message:</label>' +
+            '<textarea type="textarea" rows="4" cols="50" id="swal-input2" class="swal2-input message">'
+        }).then(function() {
+            $.ajax({
+                url: "/team/addMessage",
+                type: "POST",
+                data: {
+                    title: $('.title').val(),
+                    message: $('.message').val()
+                }
+            })
+            .then(function(response) {
+                check(response);
+            })
+            .catch(function(err) {
+                console.log(err.message);
+            });
+      }).catch(function(err) {
+          console.log(err.message);
+      });
+  });
 
 });

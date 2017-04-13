@@ -10,22 +10,23 @@
 </div>
 
 <div class="background">
-
 </div>
-<h3 class="myTeams">{{teamName}} Message Board:</h3>
 
-{{#each messages}}
+<h3 class="myTeams messageHeader">{{teamName}} Message Board:</h3>
+<div class="messageBoard">
+    {{#each messages}}
+        <p><span class="bold">From:</span> {{firstname}} {{ lastname}}</p>
+            <p><span class="bold">Posted: </span>{{date}} at {{time}}</p>
+        <p><span class="bold">Title: </span>{{title}}</p>
+        <p>{{message}}</p>
+        <br>
+    {{/each}}
+</div>
 
-    <p><span class="bold">From:</span> {{firstname}} {{ lastname}}</p>
-    <p><span class="bold">Title: </span>{{title}}</p>
-    <p><span class="bold">Date: </span>{{date}}</p>
-    <p><span class="bold">Time: </span>{{time}}</p>
-    <p>{{message}}</p>
-    <br>
-{{/each}}
+<button type="button" name="button" id="createMessageButton" class="submitButton">Add a Message</button>
 
 
-<form method="POST" class="new_message">
+<!-- <form method="POST" class="new_message">
     <div class="form-group">
         <label>Title: </label>
         <input type="text" name="title" class="form-control title">
@@ -38,5 +39,4 @@
 
     <button type="button" name="button" id="createMessageButton">Submit</button>
 
-    <br>
-</form>
+</form> -->
