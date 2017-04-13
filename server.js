@@ -250,7 +250,7 @@ app.get('/photos/:id', function(req, res, next) {
 
 //Photo upload
 app.post('/photoUpload',  function(req, res, next) {
-  console.log(req.file);
+  console.log("test"+ Object.keys(req.res));
 });
 
 // Team Messages page
