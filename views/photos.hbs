@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<h1>{{teamName}} photos!</h1>
+{{#each photos}}
+  <h3>{{title}}</h3><br>
+  <p>{{date}}</p>
+  <p>{{path}}</p>
+  <p>{{photographer}}</p>
+  <p>{{location}}</p><br>
+  <p>{{caption}}</p><br>
+{{/each}}
+
+<div id="upload-area">
+	<div id="preview">
+		<img width="100px" height="100px" src="/images/icons/128px/zurb.png" id="thumb">
+	</div>
+
+	<form action="/playground/ajax_upload" id="newHotnessForm">
+		<label>Upload a Picture of Yourself</label>
+		<input type="file" size="20" id="imageUpload" class=" ">
+		<button class="button" type="submit">Save</button>
+	</form>
+</div>

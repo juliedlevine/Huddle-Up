@@ -230,6 +230,29 @@ app.get('/events/:id', function(req, res, next) {
         });
 });
 
+//Team Photos page
+app.get('/photos/:id', function(req, res, next) {
+    var id = req.params.id;
+    // db.one(`select teamname from team where team.id = $1`, id)
+    //     .then(function(teamName) {
+    //         return [teamName, db.any(`SELECT * FROM messages JOIN team on messages.teamid = team.id join parent on parent.id = messages.sender WHERE team.id = $1`, id)];
+    //     })
+          // .spread(function(teamName, results) {
+            res.render('photos.hbs', {
+                // teamName: teamName.teamname,
+                // messages: results
+            });
+        // })
+        // .catch(function(err){
+        //     console.log(err.message);
+        // });
+});
+
+//Photo upload
+app.post('/photoUpload', upload.single('file'), function(req, res, next) {
+  console.log(req.file);
+});
+
 // Team Messages page
 app.get('/messages/:id', function(req, res, next) {
     var id = req.params.id;
