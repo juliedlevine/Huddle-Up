@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  var Dropzone = require("dropzone");
+  
   Dropzone.autoDiscover = false;
   Dropzone.options.myDropZone = {
     paramName: 'file',

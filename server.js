@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-// const Dropzone = require('dropzone');
+var Dropzone = require("dropzone");
 const express = require('express');
 var multer = require('multer');
 var upload = multer({dest: 'photos/'});
@@ -13,6 +13,7 @@ const db = pgp({
 });
 const session = require('express-session');
 const bcrypt = require('bcrypt');
+var Dropzone = require('dropzone');
 app.set('view engine', 'hbs');
 app.use(session({
     secret: 'hippo1234',
