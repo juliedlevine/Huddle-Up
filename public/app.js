@@ -116,6 +116,48 @@ $(document).ready(function() {
 
     $('#createEventButton').click(function(event){
         event.preventDefault();
+        swal({
+        title: 'Add a new Event',
+        showCancelButton: true,
+        html:
+            '<label>Title:</label>' +
+            '<input type="text" id="swal-input1" name="title" class="swal2-input title">' +
+            '<label>Date:</label>' +
+            '<input type="date" name="date" id="swal-input2" class="swal2-input date">' +
+            '<label>Start Time:</label>' +
+            '<input type="time" id="swal-input2" class="swal2-input startTime">' +
+            '<label>End Time:</label>' +
+            '<input type="time" id="swal-input2" class="swal2-input endTime">' +
+            '<label>Location:</label>' +
+            '<input type="text" id="swal-input1" name="location" class="swal2-input location">' +
+            '<label>Comment:</label>' +
+            '<input type="text" id="swal-input1" name="comments" class="swal2-input comments">'
+        }).then(function() {
+            $.ajax({
+                url: "/team/createEvent",
+                type: "POST",
+                data: {
+                    title: $('.title').val(),
+                    date: $('.date').val(),
+                    starttime: $('.startTime').val(),
+                    endtime: $('.endTime').val(),
+                    location: $('.location').val(),
+                    comment: $('.comments').val()
+
+                }
+            })
+            .then(function(response) {
+                check(response);
+            })
+            .catch(function(err) {
+                console.log(err.message);
+            });
+        }).catch(function(err) {
+          console.log(err.message);
+        });
+
+
+
         $.ajax({
             url: "/team/createEvent",
             type: "POST",
