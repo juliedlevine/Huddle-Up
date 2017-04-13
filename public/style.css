@@ -51,6 +51,10 @@ body {
     padding: 7px 22px;
     color: white;
 }
+.submitButton:hover {
+    text-decoration: none;
+    color: white;
+}
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
@@ -188,4 +192,66 @@ input:-webkit-autofill {
     margin-bottom: 24px;
     text-align: center;
     font-family: 'Graduate', cursive;
+}
+
+
+/****************************
+        TEAM HOME
+ *****************************/
+.teamInfo {
+    margin: 0 auto;
+     padding: 20px 40px 40px 60px;
+     font-size: 16px;
+     width: 500px;
+     text-align: left;
+}
+.bold {
+    font-weight: 700;
+}
+
+
+/****************************
+        TEAM ROSTER
+ *****************************/
+.rosterWrapper {
+    padding-top: 20px;
+    width: 600px;
+    margin: 0 auto;
+}
+.rosterTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+/****************************
+        EVVENTS PAGE
+ *****************************/
+.eventInfo {
+    width: 750px;
+}
+.eventInfo h4 {
+    margin: 16px 0px;
+}
+.eventInfo p {
+    margin: 0;
+}
+.eventForm {
+    padding-top: 0;
+}
+.eachMessage {
+    background-color: #004390;
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
 }

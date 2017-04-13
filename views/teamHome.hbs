@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-{{#if session.user}}
-    <a href="/logout" id="logout">Logout</a>
-{{/if}}
 
-<h1>Team Home</h1>
-{{#if coach}}
-<p>TeamCode: {{teamcode}}</p>
-{{/if}}
+<div class="nav navUser">
+    <h3 id="logo">HuddleUp</h3>
+    <div class="welcome">
+        <p>Welcome, {{session.user}}!</p>
+        {{#if session.user}}
+            <a href="/logout" id="logout">Logout</a>
+        {{/if}}
+    </div>
+</div>
 
-<p>Team description {{description}}</p>
-<p>Team astcoach {{astcoach}}</p>
-<p>Team coachFirst {{coachFirst}}</p>
-<p>Team coachLast {{coachLast}}</p>
+<div class="background">
+</div>
+
+<div class="dashboard">
+    <h3 class="myTeams">Team Home</h3>
+    <div class="teamInfo">
+        {{#if coach}}
+            <p><span class="bold">Team Code:</span> {{teamcode}}</p>
+        {{/if}}
+
+        <p><span class="bold">Team description:</span> {{description}}</p>
+        <p><span class="bold">Coach: </span>{{coachFirst}} {{ coachLast}}</p>
+        <p><span class="bold">Assistant Coach:</span> {{astcoach}}</p>
+    </div>
 
 
-<a href="/roster/{{id}}">Roster</a>
-<a href="/events/{{id}}">Events</a>
-<a href="/messages/{{id}}">Messages</a>
+
+    <a href="/roster/{{id}}" class="submitButton">Roster</a>
+    <a href="/events/{{id}}" class="submitButton">Events</a>
+    <a href="/messages/{{id}}" class="submitButton">Messages</a>
+</div>

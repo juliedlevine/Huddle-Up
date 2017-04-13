@@ -1,39 +1,36 @@
 <!DOCTYPE html>
-{{#if session.user}}
-    <a href="/logout" id="logout">Logout</a>
-{{/if}}
-<style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
+<div class="nav navUser">
+    <h3 id="logo">HuddleUp</h3>
+    <div class="welcome">
+        <p>Welcome, {{session.user}}!</p>
+        {{#if session.user}}
+            <a href="/logout" id="logout">Logout</a>
+        {{/if}}
+    </div>
+</div>
 
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
+<div class="background">
 
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>
+</div>
 
-<h1>Roster</h1>
-<table>
-      <tr>
-        <th>Child Name</th>
-        <th>Parent Name</th>
-        <th>Parent Cell</th>
-        <th>Parent Email</th>
-      </tr>
-    {{#each roster}}
-      <tr>
-        <td>{{childname}}</td>
-        <td>{{firstname}} {{ lastname}}</td>
-        <td>{{cellphone}}</td>
-        <td>{{email}}</td>
-      </tr>
-  {{/each}}
-</table>
+<div class="dashboard">
+    <h3 class="myTeams">Team Roster</h3>
+    <div class="rosterWrapper">
+        <table class="rosterTable">
+              <tr>
+                <th>Child Name</th>
+                <th>Parent Name</th>
+                <th>Parent Cell</th>
+                <th>Parent Email</th>
+              </tr>
+            {{#each roster}}
+              <tr>
+                <td>{{childname}}</td>
+                <td>{{firstname}} {{ lastname}}</td>
+                <td>{{cellphone}}</td>
+                <td>{{email}}</td>
+              </tr>
+          {{/each}}
+        </table>
+    </div>
+</div>

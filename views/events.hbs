@@ -1,53 +1,72 @@
 <!DOCTYPE html>
-{{#if session.user}}
-    <a href="/logout" id="logout">Logout</a>
-{{/if}}
+<div class="nav navUser">
+    <h3 id="logo">HuddleUp</h3>
+    <div class="welcome">
+        <p>Welcome, {{session.user}}!</p>
+        {{#if session.user}}
+            <a href="/logout" id="logout">Logout</a>
+        {{/if}}
+    </div>
+</div>
 
-<h3>{{teamName}} Upcoming Events:</h3>
-{{#each events}}
-    <h4>{{title}}</h4><br>
-    <p>When: {{date}}</p>
-        <p>Where: {{location}}</p>
-    <p>Start Time: {{starttime}}</p>
-    <p>End Time: {{endtime}}</p>
-    <p>Coach Notes: {{comment}}</p><br>
-{{/each}}
+<div class="background">
 
-
-{{#if coach}}
-<form method="POST" class="new_user">
-    <div class="form-group">
-        <label>Title: </label>
-        <input type="text" name="title" class="form-control title">
+</div>
+<div class="dashboard">
+    <h3 class="myTeams">{{teamName}} Upcoming Events:</h3>
+    <div class="teamInfo eventInfo">
+        {{#each events}}
+        <div class="eachMessage">
+            <h4>{{title}}</h4>
+            <p><span class="bold">When: </span>{{date}}</p>
+            <p><span class="bold">Where: </span>{{location}}</p>
+            <p><span class="bold">Start Time: </span>{{starttime}}</p>
+            <p><span class="bold">End Time: </span>{{endtime}}</p>
+            <p><span class="bold">Coach Notes: </span>{{comment}}</p>
+        </div>
+        <br>
+        {{/each}}
     </div>
 
-    <div class="form-group">
-        <label>Date: </label>
-        <input type="date" name="date" class="form-control date">
-    </div>
 
-    <div class="form-group">
-        <label>Start Time: </label>
-        <input type="time" name="startTime" class="form-control startTime">
-    </div>
+<div class="dashboard signUpForm eventForm">
+    <h3 class="myTeams">Add new Event:</h3>
+    {{#if coach}}
+    <form method="POST" class="new_user">
+        <div class="form-group">
+            <label>Title: </label>
+            <input type="text" name="title" class="form-control title">
+        </div>
 
-    <div class="form-group">
-        <label>End Time: </label>
-        <input type="time" name="endTime" class="form-control endTime">
-    </div>
+        <div class="form-group">
+            <label>Date: </label>
+            <input type="date" name="date" class="form-control date">
+        </div>
 
-    <div class="form-group">
-        <label>Location: </label>
-        <input type="text" name="location" class="form-control location">
-    </div>
+        <div class="form-group">
+            <label>Start Time: </label>
+            <input type="time" name="startTime" class="form-control startTime">
+        </div>
 
-    <div class="form-group">
-        <label>Comment: </label>
-        <input type="text" name="comments" class="form-control comments">
-    </div>
+        <div class="form-group">
+            <label>End Time: </label>
+            <input type="time" name="endTime" class="form-control endTime">
+        </div>
 
-    <button type="button" name="button" id="createEventButton">Submit</button>
+        <div class="form-group">
+            <label>Location: </label>
+            <input type="text" name="location" class="form-control location">
+        </div>
 
-    <br>
-</form>
-{{/if}}
+        <div class="form-group">
+            <label>Comment: </label>
+            <input type="text" name="comments" class="form-control comments">
+        </div>
+
+        <button type="button" name="button" id="createEventButton" class="submitButton">Submit</button>
+
+        <br>
+    </form>
+    {{/if}}
+</div>
+</div>
