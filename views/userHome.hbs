@@ -4,7 +4,14 @@
 <h3>Teams:</h3>
 <br>
 {{#each teams}}
-    <h4><a href="/team/{{id}}">{{teamname}}</a></h4>
+    <h4><a href="/team/{{id}}"> child's team: {{teamname}}</a></h4>
+    <!-- <p>Category: {{category}}</p>
+    <p>Address: {{address}}</p> -->
+    <br>
+{{/each}}
+
+{{#each coachteams}}
+    <h4><a href="/team/{{coachid}}">coaching team: {{teamname}}</a></h4>
     <!-- <p>Category: {{category}}</p>
     <p>Address: {{address}}</p> -->
     <br>
