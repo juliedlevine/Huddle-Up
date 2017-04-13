@@ -276,3 +276,36 @@ tr:nth-child(even) {
     display: block;
     margin-bottom: 40px;
 }
+
+
+/****************************
+        TEAM NAVIGATION BAR
+ *****************************/
+.teamNav ul {
+    list-style-type: none;
+    text-align: center;
+    background-color: #004390;
+}
+.teamNav li {
+    display: inline-block;
+
+    margin-left: -4px;
+}
+.teamNav li a {
+    display: inline-block;
+    padding: 20px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+}
+.teamNav li a:hover {
+
+    text-decoration: none;
+    /*background-color: white;*/
+    color: #004390;
+}
+.teamNav li:hover {
+    background-color: white;
+    color: #004390;
+}

@@ -193,14 +193,17 @@ app.get('/team/:id', function(req, res, next) {
 // Team Roster
 app.get('/roster/:id', function(req, res, next) {
     let id = req.params.id;
-        db.any(`select childname, firstname, lastname, cellphone, homephone, email from childuserteam
-        join team
+        db.any(`select team.teamname, childname, firstname, lastname, cellphone, homephone, email
+        from team
+        left outer join childuserteam
         on team.id = childuserteam.teamid
-        join parent
+        left outer join parent
         on parent.id = childuserteam.parent
         where team.id = $1;`, id)
     .then(function(results){
         res.render('roster.hbs', {
+            id: id,
+            team: results[0].teamname,
             roster: results
         });
     });
@@ -212,7 +215,7 @@ app.get('/events/:id', function(req, res, next) {
     var id = req.params.id;
     db.one(`SELECT teamname, coachid FROM team WHERE team.id = $1`, id)
         .then(function(teamInfo) {
-            return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1`, id)];
+            return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1 and date > now() order by date;`, id)];
         })
         .spread(function(teamInfo, results) {
             results.forEach(function(item){item.date = item.date.toDateString();item.starttime = fixTime(item.starttime);item.endtime = fixTime(item.endtime);});
@@ -221,6 +224,7 @@ app.get('/events/:id', function(req, res, next) {
                 isCoach = true;
             }
             res.render('events.hbs', {
+                id: id,
                 teamName: teamInfo.teamname,
                 events: results,
                 coach: isCoach
@@ -241,6 +245,7 @@ app.get('/messages/:id', function(req, res, next) {
         .spread(function(teamName, results) {
             results.forEach(function(item){item.date = item.date.toDateString();item.time = fixTime(item.time);});
             res.render('messages.hbs', {
+                id: id,
                 teamName: teamName.teamname,
                 messages: results
             });
@@ -276,7 +281,11 @@ app.post('/team/submitNew', function(req, res, next) {
     let teamCode = genCode();
     db.one("insert into team values(default, $1, $2, $3, $4, $5) returning team.id as id", [teamName, req.session.userId, astCoach, teamCode, description])
         .then(function(result) {
-            res.redirect('/team/' + result.id);
+            var response = {
+                message: 'successTeam',
+                id: result.id
+            };
+            res.send(response);
         })
         .catch(next);
 });
