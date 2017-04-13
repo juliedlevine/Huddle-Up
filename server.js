@@ -113,7 +113,7 @@ app.use(function authentication(req, res, next) {
 // User home
 app.get('/userHome', function(req, res) {
     db.any(`
-      select team.teamname, team.id
+      select distinct team.teamname, team.id
 from
 team
 inner join(
