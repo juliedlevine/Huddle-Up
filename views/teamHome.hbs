@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+{{#if session.user}}
+    <a href="/logout" id="logout">Logout</a>
+{{/if}}
 
 <h1>Team Home</h1>
 {{#if coach}}

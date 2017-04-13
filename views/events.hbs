@@ -1,14 +1,16 @@
 <!DOCTYPE html>
+{{#if session.user}}
+    <a href="/logout" id="logout">Logout</a>
+{{/if}}
 
 <h3>{{teamName}} Upcoming Events:</h3>
-
 {{#each events}}
-<h3>{{title}}</h3><br>
-<p>{{date}}</p>
-<p>{{starttime}}</p>
-<p>{{endtime}}</p>
-<p>{{location}}</p><br>
-<p>{{comment}}</p><br>
+    <h4>{{title}}</h4><br>
+    <p>When: {{date}}</p>
+        <p>Where: {{location}}</p>
+    <p>Start Time: {{starttime}}</p>
+    <p>End Time: {{endtime}}</p>
+    <p>Coach Notes: {{comment}}</p><br>
 {{/each}}
 
 

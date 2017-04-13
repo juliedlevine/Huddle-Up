@@ -74,6 +74,7 @@ $(document).ready(function() {
 
     $('#submitLogin').click(function(event) {
         event.preventDefault();
+        console.log("We are here")
         $.ajax({
             url: "/submitLogin",
             type: "POST",

@@ -1,14 +1,36 @@
 <!DOCTYPE html>
-<h1>User Home</h1>
-<p>Hello {{session.user}}</p>
-<h3>Teams:</h3>
-<br>
-{{#each teams}}
-    <h4><a href="/team/{{id}}">{{teamname}}</a></h4>
-    <!-- <p>Category: {{category}}</p>
-    <p>Address: {{address}}</p> -->
-    <br>
-{{/each}}
 
-<a href="/createTeam">Create Team</a>
-<button type="button" name="button" class="joinTeamButton">Join Team</button>
+
+<div class="nav navUser">
+    <h3 id="logo">HuddleUp</h3>
+    <div class="welcome">
+        <p>Welcome, {{session.user}}!</p>
+        {{#if session.user}}
+            <a href="/logout" id="logout">Logout</a>
+        {{/if}}
+    </div>
+</div>
+
+
+<div class="background">
+
+</div>
+<div class="dashboard">
+    <h3 class="myTeams">My Teams:</h3>
+    <div class="teams">
+        {{#each teams}}
+            <h4><a href="/team/{{id}}">{{teamname}}</a></h4>
+        {{/each}}
+    </div>
+    <div class="teamButtons">
+        <a href="/createTeam" class="submitButton">Create Team</a>
+        <button type="button" name="button" class="joinTeamButton submitButton">Join Team</button>
+    </div>
+
+</div>
+
+
+<div class="footer">
+    <h4><a href="https://github.com/juliemdyer/Huddle-Up" target="blank">Contact</a></h4>
+    <p>&copy 2017 HuddleUp. All Rights Reserved</p>
+</div>
