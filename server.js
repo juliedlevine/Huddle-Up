@@ -249,7 +249,7 @@ app.get('/photos/:id', function(req, res, next) {
 });
 
 //Photo upload
-app.post('/photoUpload', upload.single('file'), function(req, res, next) {
+app.post('/photoUpload',  function(req, res, next) {
   console.log(req.file);
 });
 
