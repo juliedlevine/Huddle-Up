@@ -1,11 +1,39 @@
+<!DOCTYPE html>
+{{#if session.user}}
+    <a href="/logout" id="logout">Logout</a>
+{{/if}}
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+
 <h1>Roster</h1>
-{{#each roster}}
-<p>
-    Child Name: {{childname}}
-    First Name: {{firstname}}
-    Last Name: {{lastname}}
-    Cell Phone: {{cellphone}}
-    home Phone{{homephone}}
-    Email: {{email}} <br><br>
-</p>
-{{/each}}
+<table>
+      <tr>
+        <th>Child Name</th>
+        <th>Parent Name</th>
+        <th>Parent Cell</th>
+        <th>Parent Email</th>
+      </tr>
+    {{#each roster}}
+      <tr>
+        <td>{{childname}}</td>
+        <td>{{firstname}} {{ lastname}}</td>
+        <td>{{cellphone}}</td>
+        <td>{{email}}</td>
+      </tr>
+  {{/each}}
+</table>
