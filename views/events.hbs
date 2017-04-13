@@ -39,6 +39,9 @@
         {{/each}}
     </div>
 
+{{#if coach}}
+    <button type="button" name="button" id="createEventButton" class="submitButton">Add New Event</button>
+{{/if}}
 
 <!-- <div class="dashboard signUpForm eventForm">
     {{#if coach}}
@@ -74,7 +77,7 @@
             <input type="text" name="comments" class="form-control comments">
         </div>
 
-        <button type="button" name="button" id="createEventButton" class="submitButton">Submit</button>
+
 
         <br>
     </form>
