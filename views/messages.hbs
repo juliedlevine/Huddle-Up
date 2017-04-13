@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-{{#if session.user}}
-    <a href="/logout" id="logout">Logout</a>
-{{/if}}
-<h3>{{teamName}} Message Board:</h3>
+<div class="nav navUser">
+    <h3 id="logo">HuddleUp</h3>
+    <div class="welcome">
+        <p>Welcome, {{session.user}}!</p>
+        {{#if session.user}}
+            <a href="/logout" id="logout">Logout</a>
+        {{/if}}
+    </div>
+</div>
+
+<div class="background">
+
+</div>
+<h3 class="myTeams">{{teamName}} Message Board:</h3>
 
 {{#each messages}}
-    <p>{{date}}</p>
-    <p>{{time}}</p>
-    <p>{{firstname}} {{ lastname}}</p>
-    <p>{{title}}</p>
+
+    <p><span class="bold">From:</span> {{firstname}} {{ lastname}}</p>
+    <p><span class="bold">Title: </span>{{title}}</p>
+    <p><span class="bold">Date: </span>{{date}}</p>
+    <p><span class="bold">Time: </span>{{time}}</p>
     <p>{{message}}</p>
     <br>
 {{/each}}

@@ -17,12 +17,15 @@
     <h3 class="myTeams">My Teams:</h3>
     <div class="teams">
         {{#each teams}}
-            <h4><a href="/team/{{id}}">child's team: {{teamname}}</a></h4>
+            <h4><a href="/team/{{id}}">{{teamname}}</a></h4>
         {{/each}}
 
         {{#each coachteams}}
-            <h4><a href="/team/{{id}}">coaching team: {{teamname}}</a></h4>
+            <h4><a href="/team/{{id}}">{{teamname}} *</a></h4>
         {{/each}}
+        {{#if coachteams}}
+        <p>* Inidcates you coach this team.</p>
+        {{/if}}
     </div>
     <div class="teamButtons">
         <a href="/createTeam" class="submitButton">Create Team</a>

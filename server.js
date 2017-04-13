@@ -121,17 +121,17 @@ app.get('/userHome', function(req, res) {
         on team.id = childuserteam.teamid
         join parent
         on childuserteam.parent = parent.id
-        where parent.id = $1;`,req.session.userId)
+        where parent.id = $1 and team.coachid != $1;`,req.session.userId)
         .then(function(childresult){
           return [childresult, db.any(`select distinct teamname, team.id
           from
           team
           where coachid = $1`, req.session.userId)];
         })
-        .spread(function(childresults, coachresults){
-            res.render('userHome.hbs',{
-                teams:childresults,
-                id:childresults.id,
+        .spread(function(childresults, coachresults) {
+            res.render('userHome.hbs', {
+                teams: childresults,
+                id: childresults.id,
                 coachteams: coachresults,
                 coachid: coachresults.id
             });

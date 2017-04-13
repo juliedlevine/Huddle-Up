@@ -195,8 +195,13 @@ $(document).ready(function() {
       // var teamId = $(this).attr('data-team-id');
       console.log('teamid: ' + teamId);
       swal({
-          title: 'Enter Message to Text the Team',
-          input: 'text',
+          title: 'Send a Text Message to your Team',
+          text: 'Enter message below',
+          input: 'textarea',
+          imageUrl: '/chat.png',
+          imageWidth: 100,
+          imageHeight: 100,
+          animation: false,
           showCancelButton: true,
           confirmButtonText: 'Submit',
           showLoaderOnConfirm: true,
