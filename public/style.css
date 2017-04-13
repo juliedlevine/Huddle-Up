@@ -169,10 +169,34 @@ input:-webkit-autofill {
     text-align: center;
 }
 .teams {
-    padding: 15px 0 30px;
+    width: 250px;
+    text-align: left;
+    text-align: left;
+    margin: 0 auto;
+    padding-left: 50px;
+}
+.trophy {
+    margin: 0 auto;
+    display: block;
+    padding: 20px;
+}
+.userHomeInfo {
+    line-height: 29px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 11px auto -22px;
+    font-size: 16px;
+}
+.teams img {
+    height: 16px;
+    margin-left: 5px;
+    margin-bottom: 4px;
 }
 .teamButtons {
     padding: 20px;
+}
+.star {
+    display: inline-block;
 }
 
 
@@ -208,7 +232,12 @@ input:-webkit-autofill {
 .bold {
     font-weight: 700;
 }
-
+.selected {
+    background-color: white;
+}
+body > div.teamNav > ul > li.selected > a {
+    color: black;
+}
 
 /****************************
         TEAM ROSTER
@@ -260,16 +289,21 @@ tr:nth-child(even) {
 /****************************
         MESSAGES PAGE
  *****************************/
- .messageHeader {
-     padding: 20px 0 0 0;
- }
 .messageBoard {
-    line-height: 11px;
     margin: 0 auto;
     padding: 20px 40px 40px 60px;
     font-size: 16px;
     width: 700px;
     text-align: left;
+}
+.messageBoard img {
+    margin-top: -12px;
+    float: left;
+    margin-right: 32px;
+    width: 83px;
+}
+.messageBoard p {
+    margin: -15px 112px 16px;
 }
 #createMessageButton {
     margin: 0 auto;
@@ -282,6 +316,7 @@ tr:nth-child(even) {
         TEAM NAVIGATION BAR
  *****************************/
 .teamNav ul {
+    margin-left: -40px;
     list-style-type: none;
     text-align: center;
     background-color: #004390;
@@ -303,9 +338,19 @@ tr:nth-child(even) {
 
     text-decoration: none;
     /*background-color: white;*/
-    color: #004390;
+    color: black;
 }
 .teamNav li:hover {
     background-color: white;
     color: #004390;
+}
+
+
+/****************************
+    SWEET ALERT STYLES
+ *****************************/
+.swalLabel {
+    margin-bottom: 0;
+    font-weight: 700;
+    text-align: left;
 }
