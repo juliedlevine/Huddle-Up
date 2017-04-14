@@ -1,7 +1,7 @@
 
 const express = require('express');
 var multer = require('multer');
-var upload = multer({dest: 'photos/'});
+// var upload = multer({dest: 'public/photos/'});
 const app = express();
 var Promise = require('bluebird');
 var pgp = require('pg-promise')({promiseLib: Promise});
@@ -19,6 +19,18 @@ app.use(session({
         maxAge: 600000000}
 }));
 
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/photos/')
+    },
+    filename: function (req, file, cb) {
+      let extArray = file.mimetype.split("/");
+   let extension = extArray[extArray.length - 1];
+   cb(null, file.fieldname + '-' + Date.now()+ '.' +extension)
+  }
+})
+
+var upload = multer({ storage: storage })
 
 
 // Serve up public files at root
@@ -244,22 +256,28 @@ app.get('/messages/:id', function(req, res, next) {
 
 //Team Photos page
 app.get('/photos/:id', function(req, res, next) {
-  db.any(
-    select path, parentId, date
-    from photo
-    where teamId = req.session.teamId
-  )
-  res.render('photos.hbs');
+  db.any(`select path, parentId, date from photo where teamId = $1`,req.session.teamId)
+    .then(function(results){
+      res.render('photos.hbs',{
+        photos: results
+      });
+
+    }).catch(function(err){
+    console.log(err.message);
+  });
+
 });
 
 //Photo upload
 app.post('/photoUpload', upload.single('file'), function(req, res, next) {
   var id = req.body.id;
-  console.log((req.file.path+(req.file.originalname).slice(req.file.originalname.length-4,req.file.originalname.length)));
-    db.none(`insert into photo values (default,$1,$2,$3,$4,now())`,[req.session.teamId, req.session.userId, req.file.path+(req.file.originalname).slice(req.file.originalname.length-4,req.file.originalname.length), req.file.originalname])
-    .then(function(){
-      res.send('success');
-    })
+  db.none(`insert into photo values (default,$1,$2,$3,$4,now())`,[
+    req.session.teamId,
+    req.session.userId, req.file.path.slice(7),
+    req.file.originalname])
+  .then(function(){
+    res.send('success');
+  })
   .catch(function(err){
       console.log(err.message);
   });

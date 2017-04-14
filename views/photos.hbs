@@ -3,7 +3,7 @@
 {{#each photos}}
   <h3>{{title}}</h3><br>
   <p>{{date}}</p>
-  <p>{{path}}</p>
+  <img src='/{{path}}'</p>
   <p>{{photographer}}</p>
   <p>{{location}}</p><br>
   <p>{{caption}}</p><br>
@@ -13,6 +13,7 @@
       class="dropzone"
       id="uploadWidget">
       <div class="fallback">
-        <input name="originalname" type="file" multiple />
+      <input name="originalname" type="file" multiple />
       </div>
 </form>
+<input type="button" value="Submit" onClick="window.location.reload()">
