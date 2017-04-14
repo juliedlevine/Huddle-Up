@@ -5,9 +5,8 @@ const app = express();
 var Promise = require('bluebird');
 var pgp = require('pg-promise')({promiseLib: Promise});
 const bodyParser = require('body-parser');
-
 var config = require('./config/dbc.js');
-
+var  = require('')
 var db = pgp({
   host: config.host,
   database: config.database,
@@ -17,10 +16,12 @@ var db = pgp({
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 app.set('view engine', 'hbs');
+var secrets = require('./config/secret.js');
 app.use(session({
-    secret: 'hippo1234',
+    secret: secrets.secret,
     cookie: {
-      maxAge: 600000000}
+        maxAge: 600000000}
+  };
 }));
 
 var storage = multer.diskStorage({
