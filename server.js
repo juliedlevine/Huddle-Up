@@ -5,9 +5,14 @@ const app = express();
 var Promise = require('bluebird');
 var pgp = require('pg-promise')({promiseLib: Promise});
 const bodyParser = require('body-parser');
-const db = pgp({
-  host: 'localhost',
-  database: 'huddleUp',
+
+var config = require('./config/dbc.js');
+
+var db = pgp({
+  host: config.host,
+  database: config.database,
+  user: config.user,
+  password: config.password
 });
 const session = require('express-session');
 const bcrypt = require('bcrypt');
@@ -15,7 +20,7 @@ app.set('view engine', 'hbs');
 app.use(session({
     secret: 'hippo1234',
     cookie: {
-        maxAge: 600000000}
+      maxAge: 600000000}
 }));
 
 var storage = multer.diskStorage({
@@ -411,6 +416,6 @@ function fixTime(time){
 }
 
 // Start server
-app.listen(3000, function() {
+app.listen(5000, function() {
     console.log('Example app listening on port 3000!');
 });
