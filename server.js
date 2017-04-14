@@ -294,6 +294,7 @@ app.get('/messages/:id', function(req, res, next) {
 app.get('/photos/:id', function(req, res, next) {
   db.any(`select path, parentId, date from photo where teamId = $1`,req.session.teamId)
     .then(function(results){
+      results.forEach(function(item){item.date = item.date.toDateString();});
       res.render('photos.hbs',{
         photos: results
       });
