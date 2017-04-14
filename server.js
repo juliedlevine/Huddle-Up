@@ -295,9 +295,11 @@ app.get('/messages/:id', function(req, res, next) {
 
 //Team Photos page
 app.get('/photos/:id', function(req, res, next) {
+    var id = req.params.id;
     db.any(`select path, parentId, date from photo where teamId = $1`,req.session.teamId)
         .then(function(results) {
             res.render('photos.hbs', {
+                id: id,
                 photos: results,
                 teamName: req.session.teamName
             });
