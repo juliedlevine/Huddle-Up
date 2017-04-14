@@ -133,6 +133,12 @@ input:-webkit-autofill {
 /****************************
         USER HOME
  *****************************/
+.logoLink {
+    color: black;
+}
+.logoLink:hover {
+    text-decoration: none;
+}
 .navUser {
     padding-top: 20px;
 }
@@ -166,7 +172,6 @@ input:-webkit-autofill {
     font-family: 'Graduate', cursive;
 }
 .dashboard {
-    padding-top: 40px;
     min-height: 475px;
     margin: 0 auto;
     display: block;
@@ -242,7 +247,28 @@ input:-webkit-autofill {
 body > div.teamNav > ul > li.selected > a {
     color: black;
 }
-
+.trophyHome {
+    width: 30px;
+}
+.myHomeLink {
+    margin: 20px;
+}
+.myHomeLink a:hover {
+    text-decoration: none;
+}
+.starDiv {
+    margin-top: -15px;
+    margin-left: -11px;
+}
+.starTeamHome {
+    margin-top: -4px;
+    width: 20px;
+    display: inline-block;
+}
+.coach {
+    margin-left: 4px;
+    display: inline-block;
+}
 /****************************
         TEAM ROSTER
  *****************************/
@@ -396,4 +422,37 @@ tr:nth-child(even) {
     width: 400px;
     border-radius: 5px;
     margin: 0 10px 30px 10px;
+}
+
+
+
+/****************************
+    MEDIA QUERIES
+ *****************************/
+
+@media screen and (max-width: 414px) {
+    .teamNav li {
+        display: block;
+        height: 50px;
+        margin-left: -4px;
+    }
+    .teamNav li a {
+        display: inline-block;
+        padding: 20px;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+    }
+    .teamNav li a:hover {
+
+        text-decoration: none;
+        /*background-color: white;*/
+        color: black;
+    }
+    .teamNav li:hover {
+        background-color: white;
+        color: #004390;
+    }
+
 }

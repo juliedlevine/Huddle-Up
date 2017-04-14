@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <div class="nav navUser">
-    <h3 id="logo">HuddleUp</h3>
+    <h3 id="logo"><a href="/" class="logoLink">HuddleUp</a></h3>
     <div class="welcome">
         <p>Welcome, {{session.user}}!</p>
         {{#if session.user}}
@@ -14,7 +14,7 @@
 </div>
 <div class="teamNav">
     <ul>
-        <li><a href="/userHome">Home</a></li>
+        <li><a href="/team/{{id}}">Team Home</a></li>
         <li><a href="/roster/{{id}}">Roster</a></li>
         <li><a href="/events/{{id}}">Events</a></li>
         <li><a href="/messages/{{id}}">Messages</a></li>
@@ -23,6 +23,11 @@
         <li><a href="javascript:void(0)" data-team-id="{{id}}" id="sendGroupTextMessage">Send Group Text</a></li>
         {{/if}}
     </ul>
+</div>
+
+<div class="myHomeLink">
+    <img src="/trophy.png" alt="Trophy Image" class="trophyHome">
+    <a href="/userHome">My Homepage</a>
 </div>
 
 <div class="dashboard">
