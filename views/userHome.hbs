@@ -13,26 +13,39 @@
 <div class="background">
 
 </div>
+<div class="teamNav">
+    <ul>
+        <li><a href="#" id="createTeamButton">Create Team</a></li>
+        <li><a href="#" class="joinTeamButton">Join Team</a></li>
+    </ul>
+</div>
+
+<div class="userHomeInfo">
+    <img src="trophy.png" alt="Trophy" class="trophy">
+    <h3 class="myTeams">Welcome to HuddleUp!</h3>
+    <p>Below you'll find teams you are a member or coach of. Click on any of your teams to see your Team Dashboard.</p>
+    <p>Not signed up with any teams yet? Click the links above to get started. To join a team you'll need to get a code from your coach. Create a new team to start managing your team today!</p>
+</div>
+
 <div class="dashboard">
     <h3 class="myTeams">My Teams:</h3>
     <div class="teams">
         {{#each teams}}
-            <h4><a href="/team/{{id}}">child's team: {{teamname}}</a></h4>
+            <h4><a href="/team/{{id}}">{{teamname}}</a></h4>
         {{/each}}
 
         {{#each coachteams}}
-            <h4><a href="/team/{{id}}">coaching team: {{teamname}}</a></h4>
+            <h4><a href="/team/{{id}}">{{teamname}}</a><img src="star.png" alt="star image"></h4>
         {{/each}}
+        {{#if coachteams}}
+        <br>
+        <img src="star.png" alt="star image" class="star">
+        <p class="star">You coach this team</p>
+        {{/if}}
     </div>
-    <div class="teamButtons">
-        <a href="/createTeam" class="submitButton">Create Team</a>
+    <!-- <div class="teamButtons">
+        <button class="submitButton" id="createTeamButton">Create Team</button>
         <button type="button" name="button" class="joinTeamButton submitButton">Join Team</button>
-    </div>
+    </div> -->
 
-</div>
-
-
-<div class="footer">
-    <h4><a href="https://github.com/juliemdyer/Huddle-Up" target="blank">Contact</a></h4>
-    <p>&copy 2017 HuddleUp. All Rights Reserved</p>
 </div>

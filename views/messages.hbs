@@ -1,20 +1,50 @@
 <!DOCTYPE html>
-{{#if session.user}}
-    <a href="/logout" id="logout">Logout</a>
-{{/if}}
-<h3>{{teamName}} Message Board:</h3>
+<div class="nav navUser">
+    <h3 id="logo">HuddleUp</h3>
+    <div class="welcome">
+        <p>Welcome, {{session.user}}!</p>
+        {{#if session.user}}
+            <a href="/logout" id="logout">Logout</a>
+        {{/if}}
+    </div>
+</div>
 
-{{#each messages}}
-    <p>{{date}}</p>
-    <p>{{time}}</p>
-    <p>{{firstname}} {{ lastname}}</p>
-    <p>{{title}}</p>
-    <p>{{message}}</p>
-    <br>
-{{/each}}
+<div class="background">
+</div>
+
+<div class="teamNav">
+    <ul>
+        <li><a href="/userHome">Home</a></li>
+        <li><a href="/roster/{{id}}">Roster</a></li>
+        <li><a href="/events/{{id}}">Events</a></li>
+        <li class="selected"><a class="selected" href="/messages/{{id}}">Messages</a></li>
+        {{#if isCoach}}
+        <li><a href="javascript:void(0)" data-team-id="{{id}}" id="sendGroupTextMessage">Send Group Text</a></li>
+        {{/if}}
+    </ul>
+</div>
+<div class="dashboard">
+    <h3 class="myTeams messageHeader">{{teamName}} Message Board:</h3>
+    <div class="messageBoard">
+        <div class="eachMessage">
+        {{#each messages}}
+            <img src="/user.png" alt="User Icon">
+            <p><span class="bold">From:</span> {{firstname}} {{ lastname}}</p>
+                <p><span class="bold">Posted: </span>{{date}} at {{time}}</p>
+            <p><span class="bold">Title: </span>{{title}}</p>
+            <p><span class="bold">Message: </span>{{message}}</p>
+            <br>
+        {{/each}}
+        </div>
+    </div>
+
+    <button type="button" name="button" id="createMessageButton" class="submitButton">Add a Message</button>
+</div>
 
 
-<form method="POST" class="new_message">
+
+
+<!-- <form method="POST" class="new_message">
     <div class="form-group">
         <label>Title: </label>
         <input type="text" name="title" class="form-control title">
@@ -27,5 +57,4 @@
 
     <button type="button" name="button" id="createMessageButton">Submit</button>
 
-    <br>
-</form>
+</form> -->

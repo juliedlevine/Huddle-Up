@@ -12,12 +12,24 @@
 <div class="background">
 
 </div>
+<div class="teamNav">
+    <ul>
+        <li><a href="/userHome">Home</a></li>
+        <li><a href="/roster/{{id}}">Roster</a></li>
+        <li class="selected"><a class="selected" href="/events/{{id}}">Events</a></li>
+        <li><a href="/messages/{{id}}">Messages</a></li>
+        {{#if coach}}
+        <li><a href="javascript:void(0)" data-team-id="{{id}}" id="sendGroupTextMessage">Send Group Text</a></li>
+        {{/if}}
+    </ul>
+</div>
 <div class="dashboard">
     <h3 class="myTeams">{{teamName}} Upcoming Events:</h3>
     <div class="teamInfo eventInfo">
         {{#each events}}
-        <div class="eachMessage">
-            <h4>{{title}}</h4>
+        <div class="eachEvent">
+            <img src="/calendar.png" alt="">
+            <p class="titleEvent">{{title}}</p>
             <p><span class="bold">When: </span>{{date}}</p>
             <p><span class="bold">Where: </span>{{location}}</p>
             <p><span class="bold">Start Time: </span>{{starttime}}</p>
@@ -28,45 +40,7 @@
         {{/each}}
     </div>
 
-
-<div class="dashboard signUpForm eventForm">
-    {{#if coach}}
-    <h3 class="myTeams">Add new Event:</h3>
-    <form method="POST" class="new_user">
-        <div class="form-group">
-            <label>Title: </label>
-            <input type="text" name="title" class="form-control title">
-        </div>
-
-        <div class="form-group">
-            <label>Date: </label>
-            <input type="date" name="date" class="form-control date">
-        </div>
-
-        <div class="form-group">
-            <label>Start Time: </label>
-            <input type="time" name="startTime" class="form-control startTime">
-        </div>
-
-        <div class="form-group">
-            <label>End Time: </label>
-            <input type="time" name="endTime" class="form-control endTime">
-        </div>
-
-        <div class="form-group">
-            <label>Location: </label>
-            <input type="text" name="location" class="form-control location">
-        </div>
-
-        <div class="form-group">
-            <label>Comment: </label>
-            <input type="text" name="comments" class="form-control comments">
-        </div>
-
-        <button type="button" name="button" id="createEventButton" class="submitButton">Submit</button>
-
-        <br>
-    </form>
-    {{/if}}
-</div>
+{{#if coach}}
+    <button type="button" name="button" id="createEventButton" class="submitButton">Add New Event</button>
+{{/if}}
 </div>

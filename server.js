@@ -59,6 +59,7 @@ app.get('/logout', function(req, res) {
     req.session.user = null;
     req.session.userId = null;
     req.session.teamId = null;
+    req.session.teamsCoached = null;
     res.redirect('/');
 });
 
@@ -71,6 +72,13 @@ app.post('/submitLogin', function(req, res, next) {
             return [loginDetails, bcrypt.compare(password, loginDetails.password)];
         })
         .spread(function(loginDetails, matched) {
+            return [loginDetails, matched, db.any(`SELECT team.id FROM team WHERE coachid = $1`, loginDetails.id)];
+        })
+        .spread(function(loginDetails, matched, coachResults) {
+            req.session.teamsCoached = [];
+            coachResults.forEach(function(team, idx) {
+                req.session.teamsCoached.push(team.id);
+            });
             if (matched) {
                 req.session.user = loginDetails.firstname;
                 req.session.userId = loginDetails.id;
@@ -133,11 +141,19 @@ app.get('/userHome', function(req, res) {
         on team.id = childuserteam.teamid
         join parent
         on childuserteam.parent = parent.id
-        where parent.id = $1;`,req.session.userId)
-        .then(function(results){
-            res.render('userHome.hbs',{
-                teams:results,
-                id:results.id
+        where parent.id = $1 and team.coachid != $1;`,req.session.userId)
+        .then(function(childresult){
+          return [childresult, db.any(`select distinct teamname, team.id
+          from
+          team
+          where coachid = $1`, req.session.userId)];
+        })
+        .spread(function(childresults, coachresults) {
+            res.render('userHome.hbs', {
+                teams: childresults,
+                id: childresults.id,
+                coachteams: coachresults,
+                coachid: coachresults.id
             });
         })
         .catch(function(err){
@@ -198,15 +214,25 @@ app.get('/team/:id', function(req, res, next) {
 // Team Roster
 app.get('/roster/:id', function(req, res, next) {
     let id = req.params.id;
-        db.any(`select childname, firstname, lastname, cellphone, homephone, email from childuserteam
-        join team
+        db.any(`select team.teamname, childname, firstname, lastname, cellphone, homephone, email
+        from team
+        left outer join childuserteam
         on team.id = childuserteam.teamid
-        join parent
+        left outer join parent
         on parent.id = childuserteam.parent
         where team.id = $1;`, id)
-    .then(function(results){
+    .then(function(results) {
+        var isCoach;
+        if (req.session.teamsCoached.indexOf(parseInt(id)) > -1) {
+            isCoach = true;
+        } else {
+            isCoach = false;
+        }
         res.render('roster.hbs', {
-            roster: results
+            id: id,
+            team: results[0].teamname,
+            roster: results,
+            isCoach: isCoach
         });
     });
 
@@ -217,14 +243,16 @@ app.get('/events/:id', function(req, res, next) {
     var id = req.params.id;
     db.one(`SELECT teamname, coachid FROM team WHERE team.id = $1`, id)
         .then(function(teamInfo) {
-            return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1`, id)];
+            return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1 and date > now() order by date;`, id)];
         })
         .spread(function(teamInfo, results) {
+            results.forEach(function(item){item.date = item.date.toDateString();item.starttime = fixTime(item.starttime);item.endtime = fixTime(item.endtime);});
             var isCoach = false;
             if (req.session.userId === teamInfo.coachid) {
                 isCoach = true;
             }
             res.render('events.hbs', {
+                id: id,
                 teamName: teamInfo.teamname,
                 events: results,
                 coach: isCoach
@@ -243,9 +271,18 @@ app.get('/messages/:id', function(req, res, next) {
             return [teamName, db.any(`SELECT * FROM messages JOIN team on messages.teamid = team.id join parent on parent.id = messages.sender WHERE team.id = $1`, id)];
         })
         .spread(function(teamName, results) {
+            results.forEach(function(item){item.date = item.date.toDateString();item.time = fixTime(item.time);});
+            var isCoach;
+            if (req.session.teamsCoached.indexOf(parseInt(id)) > -1) {
+                isCoach = true;
+            } else {
+                isCoach = false;
+            }
             res.render('messages.hbs', {
+                id: id,
                 teamName: teamName.teamname,
-                messages: results
+                messages: results,
+                isCoach: isCoach
             });
         })
         .catch(function(err){
@@ -308,7 +345,16 @@ app.post('/team/submitNew', function(req, res, next) {
     let teamCode = genCode();
     db.one("insert into team values(default, $1, $2, $3, $4, $5) returning team.id as id", [teamName, req.session.userId, astCoach, teamCode, description])
         .then(function(result) {
-            res.redirect('/team/' + result.id);
+            if (req.session.teamsCoached) {
+                req.session.teamsCoached.push(result.id);
+            } else {
+                req.session.teamsCoached = [result.id];
+            }
+            var response = {
+                message: 'successTeam',
+                id: result.id
+            };
+            res.send(response);
         })
         .catch(next);
 });
@@ -318,8 +364,8 @@ app.post('/team/createEvent', function(req, res, next) {
     var id = req.session.teamId;
     let title = req.body.title;
     let date = req.body.date;
-    let startTime = req.body.startTime + ':00';
-    let endTime = req.body.endTime + ':00';
+    let startTime = req.body.startTime;
+    let endTime = req.body.endTime;
     let location = req.body.location;
     let comments = req.body.comments;
     db.none(`
@@ -347,6 +393,19 @@ app.post('/team/addMessage', function(req, res, next) {
         .catch(next);
 });
 
+
+function fixTime(time){
+  var hours = parseInt(time.substring(0,2));
+  var period = " AM";
+  if (hours > 12){
+    period = " PM";
+    hours = hours - 12;
+  }
+
+  time = hours + ":" + time.substring(3,5) + period;
+  return time;
+
+}
 
 // Start server
 app.listen(3000, function() {

@@ -42,6 +42,16 @@ $(document).ready(function() {
             }).then(function() {
                 location.reload();
             });
+        } else if (response.message === 'successTeam') {
+            swal({
+                title: "Success!",
+                text: "Team Created!",
+                type: "success",
+                confirmButtonText: "Cool"
+            }).then(function() {
+                var teamId = response.id;
+                window.location.href = '/team/' + teamId;
+            });
         } else if (response === 'success') {
             swal({
                 title: "Success!",
@@ -55,28 +65,9 @@ $(document).ready(function() {
 
     }
 
-    $('#createMessageButton').click(function(event) {
-        event.preventDefault();
-        $.ajax({
-            url: "/team/addMessage",
-            type: "POST",
-            data: {
-                title: $('.title').val(),
-                message: $('.message').val(),
-            }
-        })
-        .then(function(response) {
-            check(response);
-
-        })
-        .catch(function(err) {
-            console.log(err.message);
-        });
-    });
-
+    // Submit login button click
     $('#submitLogin').click(function(event) {
         event.preventDefault();
-        console.log("We are here")
         $.ajax({
             url: "/submitLogin",
             type: "POST",
@@ -95,6 +86,7 @@ $(document).ready(function() {
         });
     });
 
+    // Sign up button click
     $('#signUpButton').click(function() {
         $.ajax({
             url: "/signUp",
@@ -117,28 +109,80 @@ $(document).ready(function() {
         });
     });
 
+    // Create event button click
     $('#createEventButton').click(function(event){
         event.preventDefault();
-        $.ajax({
-            url: "/team/createEvent",
-            type: "POST",
-            data: {
-                title: $('.title').val(),
-                date: $('.date').val(),
-                startTime: $('.startTime').val(),
-                endTime: $('.endTime').val(),
-                location: $('.location').val(),
-                comments: $('.comments').val()
-            }
-        })
-        .then(function(response) {
-            check(response);
-        })
-        .catch(function(err) {
-            console.log(err.message);
+        swal({
+        title: 'Add a new Event',
+        showCancelButton: true,
+        html:
+            '<p class="swalLabel">Title:</p>' +
+            '<input type="text" id="" name=" title" id="eventTitle" class="swal2-input title">' +
+            '<p class="swalLabel">Date:</p>' +
+            '<input type="text" name="date" id="eventDate" class="swal2-input date">' +
+            '<p class="swalLabel">Start Time:</p>' +
+            '<input type="text" id="eventStartTime" class="timepicker swal2-input startTime">' +
+            '<p class="swalLabel">End Time:</p>' +
+            '<input type="text" id="eventEndTime" class="timepicker swal2-input endTime">' +
+            '<p class="swalLabel">Location:</p>' +
+            '<input type="text" id="swal-input1" name="location" id="eventText" class="swal2-input location">' +
+            '<p class="swalLabel">Comment:</p>' +
+            '<input type="text" id="swal-input1" name="comments" id="eventComment" class="swal2-input comments">',
+        onOpen: function(){
+          $("#eventDate").datepicker();
+          $('#eventStartTime').timepicker({
+                timeFormat: 'h:mm p',
+                interval: 15,
+                minTime: '8:00am',
+                maxTime: '10:00pm',
+                defaultTime: '9:00am',
+                startTime: '9:00am',
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true,
+                zindex: 1100
+          });
+          $('#eventEndTime').timepicker({
+                timeFormat: 'h:mm p',
+                interval: 15,
+                minTime: '10',
+                maxTime: '6:00pm',
+                defaultTime: '11',
+                startTime: '10:00',
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true,
+                zindex: 1100
+          });
+        }
+
+        }).then(function() {
+            $.ajax({
+                url: "/team/createEvent",
+                type: "POST",
+                data: {
+                    title: $('.title').val(),
+                    date: $('.date').val(),
+                    startTime: $('.startTime').val(),
+                    endTime: $('.endTime').val(),
+                    location: $('.location').val(),
+                  comments: $('.comments').val()
+
+                }
+            })
+            .then(function(response) {
+                check(response);
+            })
+            .catch(function(err) {
+                console.log(err.message);
+            });
+        }).catch(function(err) {
+          console.log(err.message);
         });
+
     });
 
+    // Join team button click
     $('.joinTeamButton').click(function() {
         swal.setDefaults({
           input: 'text',
@@ -187,18 +231,25 @@ $(document).ready(function() {
           });
       });
 
+    // Send group text message button click
     $('#sendGroupTextMessage').click(function(event) {
         event.preventDefault();
         var teamId = $(this).attr('data-team-id');
         sendGroupTextMessage(teamId);
     });
 
+    // Send group text message function call
     function sendGroupTextMessage(teamId){
       // var teamId = $(this).attr('data-team-id');
       console.log('teamid: ' + teamId);
       swal({
-          title: 'Enter Message to Text the Team',
-          input: 'text',
+          title: 'Send a Text Message to your Team',
+          text: 'Enter message below',
+          input: 'textarea',
+          imageUrl: '/chat.png',
+          imageWidth: 100,
+          imageHeight: 100,
+          animation: false,
           showCancelButton: true,
           confirmButtonText: 'Submit',
           showLoaderOnConfirm: true,
@@ -229,4 +280,75 @@ $(document).ready(function() {
 
     }
 
+    // Add message button click
+    $('#createMessageButton').click(function() {
+        swal({
+        title: 'Add a new Message',
+        showCancelButton: true,
+        imageUrl: '/chat.png',
+        imageWidth: 100,
+        imageHeight: 100,
+        html:
+            '<p class="swalLabel">Title:</p>' +
+            '<input id="swal-input1" class="swal2-input title">' +
+            '<p class="swalLabel">Message:</p>' +
+            '<input id="swal-input2" class="swal2-input message">'
+        }).then(function() {
+            $.ajax({
+                url: "/team/addMessage",
+                type: "POST",
+                data: {
+                    title: $('.title').val(),
+                    message: $('.message').val()
+                }
+            })
+            .then(function(response) {
+                check(response);
+            })
+            .catch(function(err) {
+                console.log(err.message);
+            });
+      }).catch(function(err) {
+          console.log(err.message);
+      });
+    });
+
+    // Create Team button click
+    $('#createTeamButton').click(function() {
+        swal.resetDefaults();
+        swal({
+        title: 'Create a Team',
+        showCancelButton: true,
+        html:
+            '<p class="swalLabel">Team Name:</p>' +
+            '<input id="swal-input1" class="swal2-input teamName">' +
+            '<p class="swalLabel">Category:</p>' +
+            '<input id="swal-input1" class="swal2-input category">' +
+            '<p class="swalLabel">Assistant Coach:</p>' +
+            '<input id="swal-input1" class="swal2-input astCoach">' +
+            '<p class="swalLabel">Description: </p>' +
+            '<input id="swal-input1" class="swal2-input description">'
+        }).then(function() {
+            $.ajax({
+                url: "/team/submitNew",
+                type: "POST",
+                data: {
+                    teamName: $('.teamName').val(),
+                    category: $('.category').val(),
+                    astCoach: $('.astCoach').val(),
+                    description: $('.description').val()
+                }
+            })
+            .then(function(response) {
+                check(response);
+            })
+            .catch(function(err) {
+                console.log(err.message);
+            });
+      }).catch(function(err) {
+          console.log(err.message);
+      });
+    });
+
+    $('#eventDate').datepicker();
 });

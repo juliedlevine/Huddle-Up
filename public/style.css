@@ -6,7 +6,6 @@ body {
 /****************************
         HOME PAGE
  *****************************/
-
 /* Navigation Bar */
 .nav {
     background-color: white;
@@ -14,6 +13,7 @@ body {
     float: left;
 }
 #logo {
+    display: block;
     color: #11213a;
     letter-spacing: 0.02em;
     display: inline-block;
@@ -61,34 +61,37 @@ input:-webkit-autofill {
 
 /* Homepage Background Image */
 .main {
-    height: 700px;
-    background-image: url('/background.jpg');
+    clear: both;
+    height: 550px;
+    background-image: url('/huddle.jpg');
     background-size: cover;
     background-position: center;
 }
 .headline {
     font-family: 'Graduate', cursive;
     color: white;
-    font-size: 98px;
+    font-size: 87px;
     margin: 0;
     position: absolute;
-    top: 53%;
-    left: 37%;
+    top: 15%;
+    left: 46%;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
 }
 .tagline {
     color: white;
-    width: 358px;
+    width: 300px;
     font-size: 16px;
     position: absolute;
-    top: 47%;
-    left: 44%;
+    top: 28%;
+    left: 55%;
     text-align: center;
 }
 
 /* Info boxes */
 .roster, .scheduling, .communication {
     color: white;
-    background-color: #013A92;
+    background-color: #777d84;
 }
 .infoHeading {
     letter-spacing: 0.1em;
@@ -150,10 +153,11 @@ input:-webkit-autofill {
     padding-right: 10px;
 }
 .background {
-    height: 300px;
-    background-image: url('/ball.jpg');
+    clear: both;
+    height: 370px;
+    background-image: url('/ball6.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: top;
 }
 .myTeams {
     letter-spacing: 0.1em;
@@ -169,10 +173,34 @@ input:-webkit-autofill {
     text-align: center;
 }
 .teams {
-    padding: 15px 0 30px;
+    width: 250px;
+    text-align: left;
+    text-align: left;
+    margin: 0 auto;
+    padding-left: 50px;
+}
+.trophy {
+    margin: 0 auto;
+    display: block;
+    padding: 20px;
+}
+.userHomeInfo {
+    line-height: 29px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 11px auto -22px;
+    font-size: 16px;
+}
+.teams img {
+    height: 16px;
+    margin-left: 5px;
+    margin-bottom: 4px;
 }
 .teamButtons {
     padding: 20px;
+}
+.star {
+    display: inline-block;
 }
 
 
@@ -200,7 +228,7 @@ input:-webkit-autofill {
  *****************************/
 .teamInfo {
     margin: 0 auto;
-     padding: 20px 40px 40px 60px;
+    padding: 20px 40px 40px 123px;
      font-size: 16px;
      width: 500px;
      text-align: left;
@@ -208,7 +236,12 @@ input:-webkit-autofill {
 .bold {
     font-weight: 700;
 }
-
+.selected {
+    background-color: white;
+}
+body > div.teamNav > ul > li.selected > a {
+    color: black;
+}
 
 /****************************
         TEAM ROSTER
@@ -235,23 +268,107 @@ tr:nth-child(even) {
 
 
 /****************************
-        EVVENTS PAGE
+        EVENTS PAGE
  *****************************/
 .eventInfo {
     width: 750px;
 }
 .eventInfo h4 {
-    margin: 16px 0px;
+    margin: 16px 16px;
 }
 .eventInfo p {
-    margin: 0;
+    margin-left: 105px;
+    margin-bottom: 4px;
 }
 .eventForm {
     padding-top: 0;
 }
-.eachMessage {
-    background-color: #004390;
-    color: white;
-    border-radius: 15px;
+.eachEvent{
     padding: 20px;
+}
+.eachEvent img {
+    margin-top: 27px;
+    width: 75px;
+    float: left;
+}
+.titleEvent {
+    font-weight: 700;
+    color: #004390;
+    text-decoration: underline;
+}
+#createEventButton {
+    margin-bottom: 47px;
+}
+
+/****************************
+        MESSAGES PAGE
+ *****************************/
+.messageBoard {
+    margin: 0 auto;
+    padding: 20px 40px 13px 123px;
+    font-size: 16px;
+    width: 700px;
+    text-align: left;
+}
+.messageBoard img {
+    margin-top: 23px;
+    width: 75px;
+    float: left;
+}
+.messageBoard p {
+    margin-left: 105px;
+    margin-bottom:0;
+    line-height: 25px;
+}
+.eachMessage {
+    padding: 20px;
+}
+#createMessageButton {
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 40px;
+}
+
+
+/****************************
+        TEAM NAVIGATION BAR
+ *****************************/
+.teamNav ul {
+    margin-left: -40px;
+    list-style-type: none;
+    text-align: center;
+    background-color: #3f7cba;
+}
+.teamNav li {
+    display: inline-block;
+
+    margin-left: -4px;
+}
+.teamNav li a {
+    display: inline-block;
+    padding: 20px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+}
+.teamNav li a:hover {
+
+    text-decoration: none;
+    /*background-color: white;*/
+    color: black;
+}
+.teamNav li:hover {
+    background-color: white;
+    color: #004390;
+}
+
+
+/****************************
+    SWEET ALERT STYLES
+ *****************************/
+.swalLabel {
+    margin-bottom: 0;
+    font-weight: 700;
+    text-align: left;
 }
