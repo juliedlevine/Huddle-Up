@@ -5,9 +5,15 @@ const app = express();
 var Promise = require('bluebird');
 var pgp = require('pg-promise')({promiseLib: Promise});
 const bodyParser = require('body-parser');
-const db = pgp({
-  host: 'localhost',
-  database: 'huddleUp',
+var twilioConfig = require('./config/twilio-config.js');
+var twilioClient = twilioConfig.twilioClient;
+var config = require('./config/dbc.js');
+
+var db = pgp({
+  host: config.host,
+  database: config.database,
+  user: config.user,
+  password: config.password
 });
 const session = require('express-session');
 const bcrypt = require('bcrypt');
@@ -15,7 +21,7 @@ app.set('view engine', 'hbs');
 app.use(session({
     secret: 'hippo1234',
     cookie: {
-        maxAge: 600000000}
+      maxAge: 600000000}
 }));
 
 var storage = multer.diskStorage({
@@ -404,6 +410,34 @@ app.post('/team/addMessage', function(req, res, next) {
         .catch(next);
 });
 
+// Ajax request to send a Team Text Message
+app.post('/sendTextMessage', function(req, res) {
+    var teamId = req.body.teamId;
+    var textMessage = req.body.textMessage;
+    var testNumbers = ['+14049315804','+14049315804'];
+    testNumbers.forEach(function(cellPhoneNumber){
+      twilioClient.sms.messages.create({
+          to:cellPhoneNumber,
+          from:'+16786662282',
+          body: textMessage
+      }, function(error, message) {
+
+          if (!error) {
+              // res.send('success');
+              console.log('Success! The SID for this SMS message is:');
+              console.log(message.sid);
+              console.log('Message sent on:');
+              console.log(message.dateCreated);
+          } else {
+              console.log('Oops! There was an error.');
+              // res.send('failure');
+          }
+      });
+
+    });
+    res.send('success');
+
+});
 
 function fixTime(time){
   var hours = parseInt(time.substring(0,2));
