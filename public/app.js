@@ -283,11 +283,14 @@ $(document).ready(function() {
         swal({
         title: 'Add a new Message',
         showCancelButton: true,
+        imageUrl: '/chat.png',
+        imageWidth: 100,
+        imageHeight: 100,
         html:
-            '<label>Title:</label>' +
+            '<p class="swalLabel">Title:</p>' +
             '<input id="swal-input1" class="swal2-input title">' +
-            '<label>Message:</label>' +
-            '<textarea type="textarea" rows="4" cols="50" id="swal-input2" class="swal2-input message">'
+            '<p class="swalLabel">Message:</p>' +
+            '<input id="swal-input2" class="swal2-input message">'
         }).then(function() {
             $.ajax({
                 url: "/team/addMessage",
@@ -310,17 +313,18 @@ $(document).ready(function() {
 
     // Create Team button click
     $('#createTeamButton').click(function() {
+        swal.resetDefaults();
         swal({
         title: 'Create a Team',
         showCancelButton: true,
         html:
-            '<label>Team Name:</label>' +
+            '<p class="swalLabel">Team Name:</p>' +
             '<input id="swal-input1" class="swal2-input teamName">' +
-            '<label>Category:</label>' +
+            '<p class="swalLabel">Category:</p>' +
             '<input id="swal-input1" class="swal2-input category">' +
-            '<label>Assistant Coach:</label>' +
+            '<p class="swalLabel">Assistant Coach:</p>' +
             '<input id="swal-input1" class="swal2-input astCoach">' +
-            '<label>Description:</label>' +
+            '<p class="swalLabel">Description: </p>' +
             '<input id="swal-input1" class="swal2-input description">'
         }).then(function() {
             $.ajax({

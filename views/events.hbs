@@ -16,7 +16,7 @@
     <ul>
         <li><a href="/userHome">Home</a></li>
         <li><a href="/roster/{{id}}">Roster</a></li>
-        <li><a href="/events/{{id}}">Events</a></li>
+        <li class="selected"><a class="selected" href="/events/{{id}}">Events</a></li>
         <li><a href="/messages/{{id}}">Messages</a></li>
         {{#if coach}}
         <li><a href="javascript:void(0)" data-team-id="{{id}}" id="sendGroupTextMessage">Send Group Text</a></li>
@@ -42,6 +42,4 @@
 {{#if coach}}
     <button type="button" name="button" id="createEventButton" class="submitButton">Add New Event</button>
 {{/if}}
-
-
 </div>
