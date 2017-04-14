@@ -27,11 +27,17 @@
 
 <div class="dashboard">
     <h3 class="myTeams">{{teamName}} Photos</h3>
-    {{#each photos}}
-        <!-- <h3>{{title}}</h3><br> -->
-        <p>{{date}}</p>
-        <img src="/{{path}}" class="eachPhoto">
-    {{/each}}
+    <ul>
+        {{#each photos}}
+            <!-- <h3>{{title}}</h3><br> -->
+            <li class="eachPhoto">
+                <p>{{date}}</p>
+                <img src="/{{path}}">
+            </li>
+
+        {{/each}}
+    </ul>
+
 
     <form action="/photoUpload"
           class="dropzone"

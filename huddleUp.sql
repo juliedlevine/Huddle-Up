@@ -306,10 +306,68 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
+-- Name: photo; Type: TABLE; Schema: public; Owner: Julie
+--
+
+CREATE TABLE photo (
+    id integer NOT NULL,
+    teamid integer,
+    parentid integer,
+    path character varying,
+    title text,
+    date date DEFAULT '2017-04-14'::date
+);
+
+
+ALTER TABLE photo OWNER TO "Julie";
+
+--
+-- Name: photo_id_seq; Type: SEQUENCE; Schema: public; Owner: Julie
+--
+
+CREATE SEQUENCE photo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE photo_id_seq OWNER TO "Julie";
+
+--
+-- Name: photos_id_seq; Type: SEQUENCE; Schema: public; Owner: Julie
+--
+
+CREATE SEQUENCE photos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE photos_id_seq OWNER TO "Julie";
+
+--
+-- Name: photos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Julie
+--
+
+ALTER SEQUENCE photos_id_seq OWNED BY photo.id;
+
+
+--
 -- Name: events id; Type: DEFAULT; Schema: public; Owner: Julie
 --
 
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
+
+
+--
+-- Name: photo id; Type: DEFAULT; Schema: public; Owner: Julie
+--
+
+ALTER TABLE ONLY photo ALTER COLUMN id SET DEFAULT nextval('photos_id_seq'::regclass);
 
 
 --
@@ -365,6 +423,8 @@ COPY childuserteam (parent, teamid, childname, childid) FROM stdin;
 5	8	Katie	10
 5	8	Johny	13
 5	9	Bryan	11
+12	10	Kimberly	14
+12	7	John	15
 \.
 
 
@@ -379,7 +439,7 @@ SELECT pg_catalog.setval('"childuserteam_childId_seq"', 1, false);
 -- Name: childuserteam_childid_seq; Type: SEQUENCE SET; Schema: public; Owner: Julie
 --
 
-SELECT pg_catalog.setval('childuserteam_childid_seq', 13, true);
+SELECT pg_catalog.setval('childuserteam_childid_seq', 15, true);
 
 
 --
@@ -387,11 +447,13 @@ SELECT pg_catalog.setval('childuserteam_childid_seq', 13, true);
 --
 
 COPY events (id, title, date, starttime, endtime, location, comment, teamid) FROM stdin;
-1	Pizza Party	2017-04-22	00:18:00	00:21:00	Kim Steel Residence	Come over to our house after the game! We'll have pizza and drinks for everyone.	2
 5	Game v. the Dr. Peppers	2017-04-25	10:00:00	12:00:00	Fullers Park	Game against the Dr. Peppers	9
 4	Game v. the Chronics	2017-04-25	10:00:00	12:00:00	Fullers Park	Game against the Chronics	7
 2	Match v. the Wildcats	2017-04-22	00:15:00	00:18:00	Cypress Field	Match against the Wildcats	2
 11	Match v. Soccer Stars	2017-04-22	00:15:00	00:18:00	Cypress Field	Match against the Soccer Stars	10
+12	Match v. the Dragons	2017-04-29	11:00:00	12:00:00	Cypress field	Game v. the dragons, see everyone Saturday	2
+1	Pizza Party	2017-04-27	00:18:00	00:21:00	Kim Steel Residence	Come over to our house after the game! We'll have pizza and drinks for everyone.	2
+13	Match against the Dr. Peppers	2017-05-13	09:00:00	11:00:00	Field 1	See everyone Saturday!	8
 \.
 
 
@@ -399,7 +461,7 @@ COPY events (id, title, date, starttime, endtime, location, comment, teamid) FRO
 -- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Julie
 --
 
-SELECT pg_catalog.setval('events_id_seq', 11, true);
+SELECT pg_catalog.setval('events_id_seq', 13, true);
 
 
 --
@@ -409,6 +471,10 @@ SELECT pg_catalog.setval('events_id_seq', 11, true);
 COPY messages (id, sender, title, message, teamid, date, "time") FROM stdin;
 1	5	Hello	Hi everyone! Looking forward to next weeks game!	2	2017-04-12	15:09:12.813268
 5	6	Hey everyone	Looking forward to a great season! See everyone at the first game.	8	2017-04-12	15:30:41.314216
+10	5	Great game	Everyone looked great out there! See you next week.	8	2017-04-13	11:21:46.795418
+18	5	The best	The Chronics are the best team out there!	9	2017-04-13	15:31:00.837577
+19	5	Saturday	Looking forward to the game!	7	2017-04-13	19:21:30.210483
+20	7	Hi Everyone!	Looking forward to a great season!	7	2017-04-13	19:31:31.275532
 \.
 
 
@@ -416,7 +482,7 @@ COPY messages (id, sender, title, message, teamid, date, "time") FROM stdin;
 -- Name: messages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Julie
 --
 
-SELECT pg_catalog.setval('messages_id_seq', 9, true);
+SELECT pg_catalog.setval('messages_id_seq', 20, true);
 
 
 --
@@ -428,6 +494,9 @@ COPY parent (id, firstname, lastname, cellphone, homephone, password, email) FRO
 5	Julie	Dyer	504-616-9063		$2a$10$wD1iBV708R4M6bSiKqmyxO8at6oXexYy0LjZIHXcYC9y1u0uU62o6	juliemdyer@gmail.com
 6	Toby	Ho	123-456-7890		$2a$10$Q8aRb8CHeAfARaoJTvZtauqBhDGasZXocrz4hie/2cyzkUamEJoMW	toby@gmail.com
 8	John	Martin	123-123-1234		$2a$10$QuadJIx9lXZeF8bkv6WIcOruOQeodfU8ZJvP9uQ5GIG8zHsmwob3e	DDre@thechronic.com
+9	John	Webster	504-172-3223		$2a$10$ZqXYzNUSA7J22C5B4pGEHOzF0CLjNB3/KGvgPG8cAdcsK1N.oQsCy	johnw@gmail.com
+12	Tom	Jones	202-523-2352		$2a$10$vl9f9ITmR1wI7LuhuvoUFePtw8o8DLiLS3ij0DZLguITkI.MUOiOS	tomjones@gmail.com
+13	Test	Test	202-123-2342	\N	email	Email
 \.
 
 
@@ -435,7 +504,36 @@ COPY parent (id, firstname, lastname, cellphone, homephone, password, email) FRO
 -- Name: parent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Julie
 --
 
-SELECT pg_catalog.setval('parent_id_seq', 8, true);
+SELECT pg_catalog.setval('parent_id_seq', 13, true);
+
+
+--
+-- Data for Name: photo; Type: TABLE DATA; Schema: public; Owner: Julie
+--
+
+COPY photo (id, teamid, parentid, path, title, date) FROM stdin;
+2	11	5	photos/file-1492178291795.jpeg	ball3.jpg	2017-04-14
+3	11	5	photos/file-1492178453029.jpeg	ball4.jpg	2017-04-14
+4	8	5	photos/file-1492179287333.jpeg	ball2.jpg	2017-04-14
+5	8	5	photos/file-1492179296449.jpeg	ball5.jpg	2017-04-14
+6	8	5	photos/file-1492179569734.jpeg	ball3.jpg	2017-04-14
+7	8	5	photos/file-1492179657070.jpeg	ball6.jpg	2017-04-14
+8	8	5	photos/file-1492179722713.jpeg	ball4.jpg	2017-04-14
+\.
+
+
+--
+-- Name: photo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Julie
+--
+
+SELECT pg_catalog.setval('photo_id_seq', 1, false);
+
+
+--
+-- Name: photos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Julie
+--
+
+SELECT pg_catalog.setval('photos_id_seq', 8, true);
 
 
 --
@@ -448,6 +546,8 @@ COPY team (id, teamname, coachid, astcoach, teamcode, description) FROM stdin;
 2	Soccer Stars	5	Todd	2390234	Atlanta Youth soccer team
 10	The Wildcats	7	John	QOI-RT-QGF	Atlanta Youth soccer team
 7	Jimminy Crickets	6	James	8675309	Atlanta Youth soccer team
+11	Wildcats	5	Tom	HNB-RL-CAZ	Youth Soccer team
+14	The Peaches	5	Tom Hanks	WUA-EL-YEV	Women's Baseball League
 \.
 
 
@@ -455,7 +555,7 @@ COPY team (id, teamname, coachid, astcoach, teamcode, description) FROM stdin;
 -- Name: team_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Julie
 --
 
-SELECT pg_catalog.setval('team_id_seq', 10, true);
+SELECT pg_catalog.setval('team_id_seq', 16, true);
 
 
 --
@@ -496,6 +596,14 @@ ALTER TABLE ONLY parent
 
 ALTER TABLE ONLY parent
     ADD CONSTRAINT parent_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: photo photos_pkey; Type: CONSTRAINT; Schema: public; Owner: Julie
+--
+
+ALTER TABLE ONLY photo
+    ADD CONSTRAINT photos_pkey PRIMARY KEY (id);
 
 
 --
@@ -552,6 +660,22 @@ ALTER TABLE ONLY team
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT "events_teamId_fkey" FOREIGN KEY (teamid) REFERENCES team(id);
+
+
+--
+-- Name: photo photos_parentid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: Julie
+--
+
+ALTER TABLE ONLY photo
+    ADD CONSTRAINT photos_parentid_fkey FOREIGN KEY (parentid) REFERENCES parent(id);
+
+
+--
+-- Name: photo photos_teamid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: Julie
+--
+
+ALTER TABLE ONLY photo
+    ADD CONSTRAINT photos_teamid_fkey FOREIGN KEY (teamid) REFERENCES team(id);
 
 
 --
