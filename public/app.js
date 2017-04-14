@@ -115,17 +115,45 @@ $(document).ready(function() {
         showCancelButton: true,
         html:
             '<label>Title:</label>' +
-            '<input type="text" id="swal-input1" name="title" class="swal2-input title">' +
+            '<input type="text" id="" name=" title" id="eventTitle" class="swal2-input title">' +
             '<label>Date:</label>' +
-            '<input type="date" name="date" id="swal-input2" class="swal2-input date">' +
+            '<input type="text" name="date" id="eventDate" class="swal2-input date">' +
             '<label>Start Time:</label>' +
-            '<input type="time" id="swal-input2" class="swal2-input startTime">' +
+            '<input type="text" id="eventStartTime" class="timepicker swal2-input startTime">' +
             '<label>End Time:</label>' +
-            '<input type="time" id="swal-input2" class="swal2-input endTime">' +
+            '<input type="text" id="eventEndTime" class="timepicker swal2-input endTime">' +
             '<label>Location:</label>' +
-            '<input type="text" id="swal-input1" name="location" class="swal2-input location">' +
+            '<input type="text" id="swal-input1" name="location" id="eventText" class="swal2-input location">' +
             '<label>Comment:</label>' +
-            '<input type="text" id="swal-input1" name="comments" class="swal2-input comments">'
+            '<input type="text" id="swal-input1" name="comments" id="eventComment" class="swal2-input comments">',
+        onOpen: function(){
+          $("#eventDate").datepicker();
+          $('#eventStartTime').timepicker({
+                timeFormat: 'h:mm p',
+                interval: 15,
+                minTime: '8:00am',
+                maxTime: '10:00pm',
+                defaultTime: '9:00am',
+                startTime: '9:00am',
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true,
+                zindex: 1100
+          });
+          $('#eventEndTime').timepicker({
+                timeFormat: 'h:mm p',
+                interval: 15,
+                minTime: '10',
+                maxTime: '6:00pm',
+                defaultTime: '11',
+                startTime: '10:00',
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true,
+                zindex: 1100
+          });
+        }
+
         }).then(function() {
             $.ajax({
                 url: "/team/createEvent",
@@ -133,10 +161,10 @@ $(document).ready(function() {
                 data: {
                     title: $('.title').val(),
                     date: $('.date').val(),
-                    starttime: $('.startTime').val(),
-                    endtime: $('.endTime').val(),
+                    startTime: $('.startTime').val(),
+                    endTime: $('.endTime').val(),
                     location: $('.location').val(),
-                    comment: $('.comments').val()
+                  comments: $('.comments').val()
 
                 }
             })
@@ -150,26 +178,6 @@ $(document).ready(function() {
           console.log(err.message);
         });
 
-
-
-        $.ajax({
-            url: "/team/createEvent",
-            type: "POST",
-            data: {
-                title: $('.title').val(),
-                date: $('.date').val(),
-                startTime: $('.startTime').val(),
-                endTime: $('.endTime').val(),
-                location: $('.location').val(),
-                comments: $('.comments').val()
-            }
-        })
-        .then(function(response) {
-            check(response);
-        })
-        .catch(function(err) {
-            console.log(err.message);
-        });
     });
 
     // Join team button click
@@ -336,4 +344,5 @@ $(document).ready(function() {
       });
     });
 
+    $('#eventDate').datepicker();
 });

@@ -295,8 +295,8 @@ app.post('/team/createEvent', function(req, res, next) {
     var id = req.session.teamId;
     let title = req.body.title;
     let date = req.body.date;
-    let startTime = req.body.startTime + ':00';
-    let endTime = req.body.endTime + ':00';
+    let startTime = req.body.startTime;
+    let endTime = req.body.endTime;
     let location = req.body.location;
     let comments = req.body.comments;
     db.none(`
