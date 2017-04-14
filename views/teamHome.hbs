@@ -19,8 +19,7 @@
         {{#if coach}}
             <p><span class="bold">Team Code:</span> {{teamcode}}</p>
         {{/if}}
-
-
+        
         <p><span class="bold">Team description:</span> {{description}}</p>
         <p><span class="bold">Coach: </span>{{coachFirst}} {{ coachLast}}</p>
         <p><span class="bold">Assistant Coach:</span> {{astcoach}}</p>
@@ -36,3 +35,7 @@
     <a href="javascript:void(0)" data-team-id="{{id}}" id="sendGroupTextMessage">Send Group Text Message</a>
     {{/if}}
 </div>
+<a href="/roster/{{id}}">Roster</a>
+<a href="/events/{{id}}">Events</a>
+<a href="/messages/{{id}}">Messages</a>
+<a href="/photos/{{id}}">Photos</a>

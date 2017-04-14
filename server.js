@@ -1,5 +1,6 @@
-/*jshint esversion: 6 */
+
 const express = require('express');
+var multer = require('multer');
 const app = express();
 var Promise = require('bluebird');
 var pgp = require('pg-promise')({promiseLib: Promise});
@@ -10,14 +11,25 @@ const db = pgp({
 });
 const session = require('express-session');
 const bcrypt = require('bcrypt');
-var twilioConfig = require('./config/twilio-config.js');
-var twilioClient = twilioConfig.twilioClient;
 app.set('view engine', 'hbs');
 app.use(session({
     secret: 'hippo1234',
     cookie: {
         maxAge: 600000000}
 }));
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/photos/')
+    },
+    filename: function (req, file, cb) {
+      let extArray = file.mimetype.split("/");
+   let extension = extArray[extArray.length - 1];
+   cb(null, file.fieldname + '-' + Date.now()+ '.' +extension)
+  }
+})
+
+var upload = multer({ storage: storage })
 
 
 // Serve up public files at root
@@ -122,18 +134,10 @@ app.get('/userHome', function(req, res) {
         join parent
         on childuserteam.parent = parent.id
         where parent.id = $1;`,req.session.userId)
-        .then(function(childresult){
-          return [childresult, db.any(`select distinct teamname, team.id
-          from
-          team
-          where coachid = $1`, req.session.userId)];
-        })
-        .spread(function(childresults, coachresults){
+        .then(function(results){
             res.render('userHome.hbs',{
-                teams:childresults,
-                id:childresults.id,
-                coachteams: coachresults,
-                coachid: coachresults.id
+                teams:results,
+                id:results.id
             });
         })
         .catch(function(err){
@@ -187,6 +191,7 @@ app.get('/team/:id', function(req, res, next) {
             id: id
         });
     });
+
 
 });
 
@@ -246,6 +251,35 @@ app.get('/messages/:id', function(req, res, next) {
         .catch(function(err){
             console.log(err.message);
         });
+});
+
+//Team Photos page
+app.get('/photos/:id', function(req, res, next) {
+  db.any(`select path, parentId, date from photo where teamId = $1`,req.session.teamId)
+    .then(function(results){
+      res.render('photos.hbs',{
+        photos: results
+      });
+
+    }).catch(function(err){
+    console.log(err.message);
+  });
+
+});
+
+//Photo upload
+app.post('/photoUpload', upload.single('file'), function(req, res, next) {
+  var id = req.body.id;
+  db.none(`insert into photo values (default,$1,$2,$3,$4,now())`,[
+    req.session.teamId,
+    req.session.userId, req.file.path.slice(7),
+    req.file.originalname])
+  .then(function(){
+    res.send('success');
+  })
+  .catch(function(err){
+      console.log(err.message);
+  });
 });
 
 // Form Submit - add new team route path
@@ -313,34 +347,6 @@ app.post('/team/addMessage', function(req, res, next) {
         .catch(next);
 });
 
-// Ajax request to send a Team Text Message
-app.post('/sendTextMessage', function(req, res) {
-    var teamId = req.body.teamId;
-    var textMessage = req.body.textMessage;
-    var testNumbers = ['+14049315804','+14049315804'];
-    testNumbers.forEach(function(cellPhoneNumber){
-      twilioClient.sms.messages.create({
-          to:cellPhoneNumber,
-          from:'+16786662282',
-          body: textMessage
-      }, function(error, message) {
-
-          if (!error) {
-              // res.send('success');
-              console.log('Success! The SID for this SMS message is:');
-              console.log(message.sid);
-              console.log('Message sent on:');
-              console.log(message.dateCreated);
-          } else {
-              console.log('Oops! There was an error.');
-              // res.send('failure');
-          }
-      });
-
-    });
-    res.send('success');
-
-});
 
 // Start server
 app.listen(3000, function() {

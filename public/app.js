@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+
+
     function check(response) {
         if (response === 'match') {
             window.location.href = '/userHome';
