@@ -34,7 +34,6 @@ var storage = multer.diskStorage({
    cb(null, file.fieldname + '-' + Date.now()+ '.' +extension);
   }
 });
-
 var upload = multer({ storage: storage });
 
 

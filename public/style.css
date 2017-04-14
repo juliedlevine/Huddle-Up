@@ -172,7 +172,7 @@ input:-webkit-autofill {
     font-family: 'Graduate', cursive;
 }
 .dashboard {
-    min-height: 475px;
+    min-height: 400px;
     margin: 0 auto;
     display: block;
     text-align: center;
@@ -428,31 +428,126 @@ tr:nth-child(even) {
 
 /****************************
     MEDIA QUERIES
- *****************************/
+*****************************/
 
+ /* iPad */
+@media screen and (max-width: 768px) {
+    .headline {
+        font-size: 66px;
+    }
+    .tagline {
+        top: 23%;
+        left: 49%;
+    }
+    .icon, .info {
+        padding: 54px;
+    }
+    .iconImage {
+        margin-top: 19px;
+    }
+    .myHomeLink {
+        text-align: center;
+    }
+}
+
+
+/* iPhone 6 plus */
 @media screen and (max-width: 414px) {
+    #logo, .signUp {
+        float: none;
+    }
+    .email, .password {
+        border: 1px solid gray;
+    }
+    .loginForm input {
+        padding: 9px 5px;
+        font-size: 13px;
+    }
+    .signUp p {
+        padding: 0px 0px 5px 11px;
+    }
+    .headline {
+        font-size: 53px;
+        top: 21%;
+        left: 27%;
+    }
+    .tagline {
+        top: 31%;
+        left: 43%;
+        width: 200px;
+        font-size: 13px;
+    }
+    .main {
+        height: 400px;
+    }
+    .icon, .info {
+        height: 200px;
+    }
+    .iconImage {
+        margin-top: 4px;
+        height: 85px;
+    }
+    .info {
+        padding: 10px;
+    }
+    .infoHeading {
+        margin-bottom: 5px;
+        font-size: 20px;
+    }
+    .info p {
+        font-size: 12px;
+        line-height: 17px;
+        text-align: center;
+    }
     .teamNav li {
         display: block;
-        height: 50px;
-        margin-left: -4px;
     }
-    .teamNav li a {
-        display: inline-block;
+    .teamInfo {
+        width: 100%;
+        padding: 20px 40px 40px 55px;
+    }
+    .rosterWrapper {
+        width: 100%;
+    }
+    .myTeams {
+        padding: 10px;
+    }
+    .eventInfo, .eachEvent, .messageBoard, .eachMessage {
+        width: 100%
+    }
+    .eventInfo p, .eachMessage p{
+        font-size: 15px;
+    }
+    .messageBoard {
+        padding: 0;
+    }
+    .eachPhoto img {
+        width: 300px;
+    }
+    .photosUl {
+        padding:0;
+    }
+}
+
+
+/* iphone 6 */
+@media screen and (max-width: 375px) {
+    .teamInfo {
         padding: 20px;
-        color: white;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        font-weight: 700;
     }
-    .teamNav li a:hover {
+    .eachMessage p, .eachEvent p {
+        font-size: 13px;
+    }
+}
 
-        text-decoration: none;
-        /*background-color: white;*/
-        color: black;
-    }
-    .teamNav li:hover {
-        background-color: white;
-        color: #004390;
-    }
 
+/* iphone 5 */
+@media screen and (max-width: 320px) {
+    td, th {
+        padding: 5px;
+        font-size: 12px;
+    }
+    .messageBoard p {
+        line-height: 21px;
+    }
 }
