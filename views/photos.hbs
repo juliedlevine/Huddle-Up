@@ -1,19 +1,44 @@
 <!DOCTYPE html>
-<h1>{{teamName}} photos!</h1>
-{{#each photos}}
-  <h3>{{title}}</h3><br>
-  <p>{{date}}</p>
-  <img src='/{{path}}'</p>
-  <p>{{photographer}}</p>
-  <p>{{location}}</p><br>
-  <p>{{caption}}</p><br>
-{{/each}}
 
-<form action="/photoUpload"
-      class="dropzone"
-      id="uploadWidget">
-      <div class="fallback">
-      <input name="originalname" type="file" multiple />
-      </div>
-</form>
-<input type="button" value="Submit" onClick="window.location.reload()">
+<div class="nav navUser">
+    <h3 id="logo">HuddleUp</h3>
+    <div class="welcome">
+        <p>Welcome, {{session.user}}!</p>
+        {{#if session.user}}
+            <a href="/logout" id="logout">Logout</a>
+        {{/if}}
+    </div>
+</div>
+
+<div class="background">
+</div>
+<div class="teamNav">
+    <ul>
+        <li><a href="/userHome">Home</a></li>
+        <li><a href="/roster/{{id}}">Roster</a></li>
+        <li><a href="/events/{{id}}">Events</a></li>
+        <li><a href="/messages/{{id}}">Messages</a></li>
+        <li class="selected"><a class="selected" href="/photos/{{id}}">Photos</a></li>
+        {{#if isCoach}}
+        <li><a href="javascript:void(0)" data-team-id="{{id}}" id="sendGroupTextMessage">Send Group Text</a></li>
+        {{/if}}
+    </ul>
+</div>
+
+<div class="dashboard">
+    <h3 class="myTeams">{{teamName}} Photos</h3>
+    {{#each photos}}
+        <!-- <h3>{{title}}</h3><br> -->
+        <p>{{date}}</p>
+        <img src="/{{path}}" class="eachPhoto">
+    {{/each}}
+
+    <form action="/photoUpload"
+          class="dropzone"
+          id="uploadWidget">
+          <div class="fallback">
+          <input name="originalname" type="file" multiple />
+          </div>
+    </form>
+    <input type="button" class ="submitButton photoSubmit" value="Submit" onclick="window.location.reload()">
+</div>
