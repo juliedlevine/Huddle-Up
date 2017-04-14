@@ -5,7 +5,8 @@ const app = express();
 var Promise = require('bluebird');
 var pgp = require('pg-promise')({promiseLib: Promise});
 const bodyParser = require('body-parser');
-
+var twilioConfig = require('./config/twilio-config.js');
+var twilioClient = twilioConfig.twilioClient;
 var config = require('./config/dbc.js');
 
 var db = pgp({
@@ -409,6 +410,34 @@ app.post('/team/addMessage', function(req, res, next) {
         .catch(next);
 });
 
+// Ajax request to send a Team Text Message
+app.post('/sendTextMessage', function(req, res) {
+    var teamId = req.body.teamId;
+    var textMessage = req.body.textMessage;
+    var testNumbers = ['+14049315804','+14049315804'];
+    testNumbers.forEach(function(cellPhoneNumber){
+      twilioClient.sms.messages.create({
+          to:cellPhoneNumber,
+          from:'+16786662282',
+          body: textMessage
+      }, function(error, message) {
+
+          if (!error) {
+              // res.send('success');
+              console.log('Success! The SID for this SMS message is:');
+              console.log(message.sid);
+              console.log('Message sent on:');
+              console.log(message.dateCreated);
+          } else {
+              console.log('Oops! There was an error.');
+              // res.send('failure');
+          }
+      });
+
+    });
+    res.send('success');
+
+});
 
 function fixTime(time){
   var hours = parseInt(time.substring(0,2));
