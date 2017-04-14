@@ -27,8 +27,9 @@
     <h3 class="myTeams">{{teamName}} Upcoming Events:</h3>
     <div class="teamInfo eventInfo">
         {{#each events}}
-        <div class="eachMessage">
-            <h4>{{title}}</h4>
+        <div class="eachEvent">
+            <img src="/calendar.png" alt="">
+            <p class="titleEvent">{{title}}</p>
             <p><span class="bold">When: </span>{{date}}</p>
             <p><span class="bold">Where: </span>{{location}}</p>
             <p><span class="bold">Start Time: </span>{{starttime}}</p>

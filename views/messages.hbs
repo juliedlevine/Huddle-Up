@@ -26,6 +26,7 @@
 <div class="dashboard">
     <h3 class="myTeams messageHeader">{{teamName}} Message Board:</h3>
     <div class="messageBoard">
+        <div class="eachMessage">
         {{#each messages}}
             <img src="/user.png" alt="User Icon">
             <p><span class="bold">From:</span> {{firstname}} {{ lastname}}</p>
@@ -34,6 +35,7 @@
             <p><span class="bold">Message: </span>{{message}}</p>
             <br>
         {{/each}}
+        </div>
     </div>
 
     <button type="button" name="button" id="createMessageButton" class="submitButton">Add a Message</button>
