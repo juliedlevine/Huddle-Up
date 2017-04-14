@@ -1,4 +1,4 @@
-
+/*jshint esversion: 6 */
 const express = require('express');
 var multer = require('multer');
 const app = express();
@@ -20,16 +20,16 @@ app.use(session({
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/photos/')
+        cb(null, 'public/photos/');
     },
     filename: function (req, file, cb) {
       let extArray = file.mimetype.split("/");
    let extension = extArray[extArray.length - 1];
-   cb(null, file.fieldname + '-' + Date.now()+ '.' +extension)
+   cb(null, file.fieldname + '-' + Date.now()+ '.' +extension);
   }
-})
+});
 
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage });
 
 
 // Serve up public files at root
@@ -56,6 +56,7 @@ app.get('/signUp', function(req, res) {
 
 // Log out
 app.get('/logout', function(req, res) {
+    req.session.teamName = null;
     req.session.user = null;
     req.session.userId = null;
     req.session.teamId = null;
@@ -193,6 +194,8 @@ app.get('/team/:id', function(req, res, next) {
         where team.id =$1;`, id)
     .then(function(results){
         var isCoach = false;
+        req.session.teamName = results.teamname;
+        console.log('Current team ' + req.session.teamName);
         if (req.session.userId === results.coachid){
             isCoach = true;
         }
@@ -296,13 +299,12 @@ app.get('/photos/:id', function(req, res, next) {
     .then(function(results){
       results.forEach(function(item){item.date = item.date.toDateString();});
       res.render('photos.hbs',{
-        photos: results
+        photos: results,
+        teamName: req.session.teamName
       });
-
     }).catch(function(err){
-    console.log(err.message);
-  });
-
+        console.log(err.message);
+    });
 });
 
 //Photo upload

@@ -372,3 +372,28 @@ tr:nth-child(even) {
     font-weight: 700;
     text-align: left;
 }
+
+
+/****************************
+    SWEET ALERT STYLES
+ *****************************/
+
+#uploadWidget > div > span:before {
+    content: 'Click or Drag and ';
+}
+#uploadWidget {
+    width: 200px;
+    margin: 0 auto;
+}
+.photoSubmit {
+    margin: 20px;
+}
+.eachPhoto {
+    display: inline-block;
+
+}
+.eachPhoto img {
+    width: 400px;
+    border-radius: 5px;
+    margin: 0 10px 30px 10px;
+}
