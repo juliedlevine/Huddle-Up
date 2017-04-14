@@ -114,17 +114,17 @@ $(document).ready(function() {
         title: 'Add a new Event',
         showCancelButton: true,
         html:
-            '<label>Title:</label>' +
+            '<p class="swalLabel">Title:</p>' +
             '<input type="text" id="" name=" title" id="eventTitle" class="swal2-input title">' +
-            '<label>Date:</label>' +
+            '<p class="swalLabel">Date:</p>' +
             '<input type="text" name="date" id="eventDate" class="swal2-input date">' +
-            '<label>Start Time:</label>' +
+            '<p class="swalLabel">Start Time:</p>' +
             '<input type="text" id="eventStartTime" class="timepicker swal2-input startTime">' +
-            '<label>End Time:</label>' +
+            '<p class="swalLabel">End Time:</p>' +
             '<input type="text" id="eventEndTime" class="timepicker swal2-input endTime">' +
-            '<label>Location:</label>' +
+            '<p class="swalLabel">Location:</p>' +
             '<input type="text" id="swal-input1" name="location" id="eventText" class="swal2-input location">' +
-            '<label>Comment:</label>' +
+            '<p class="swalLabel">Comment:</p>' +
             '<input type="text" id="swal-input1" name="comments" id="eventComment" class="swal2-input comments">',
         onOpen: function(){
           $("#eventDate").datepicker();

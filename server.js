@@ -47,6 +47,7 @@ app.get('/logout', function(req, res) {
     req.session.user = null;
     req.session.userId = null;
     req.session.teamId = null;
+    req.session.teamsCoached = null;
     res.redirect('/');
 });
 
@@ -59,6 +60,13 @@ app.post('/submitLogin', function(req, res, next) {
             return [loginDetails, bcrypt.compare(password, loginDetails.password)];
         })
         .spread(function(loginDetails, matched) {
+            return [loginDetails, matched, db.any(`SELECT team.id FROM team WHERE coachid = $1`, loginDetails.id)];
+        })
+        .spread(function(loginDetails, matched, coachResults) {
+            req.session.teamsCoached = [];
+            coachResults.forEach(function(team, idx) {
+                req.session.teamsCoached.push(team.id);
+            });
             if (matched) {
                 req.session.user = loginDetails.firstname;
                 req.session.userId = loginDetails.id;
@@ -200,11 +208,18 @@ app.get('/roster/:id', function(req, res, next) {
         left outer join parent
         on parent.id = childuserteam.parent
         where team.id = $1;`, id)
-    .then(function(results){
+    .then(function(results) {
+        var isCoach;
+        if (req.session.teamsCoached.indexOf(parseInt(id)) > -1) {
+            isCoach = true;
+        } else {
+            isCoach = false;
+        }
         res.render('roster.hbs', {
             id: id,
             team: results[0].teamname,
-            roster: results
+            roster: results,
+            isCoach: isCoach
         });
     });
 
@@ -244,10 +259,17 @@ app.get('/messages/:id', function(req, res, next) {
         })
         .spread(function(teamName, results) {
             results.forEach(function(item){item.date = item.date.toDateString();item.time = fixTime(item.time);});
+            var isCoach;
+            if (req.session.teamsCoached.indexOf(parseInt(id)) > -1) {
+                isCoach = true;
+            } else {
+                isCoach = false;
+            }
             res.render('messages.hbs', {
                 id: id,
                 teamName: teamName.teamname,
-                messages: results
+                messages: results,
+                isCoach: isCoach
             });
         })
         .catch(function(err){
@@ -281,6 +303,11 @@ app.post('/team/submitNew', function(req, res, next) {
     let teamCode = genCode();
     db.one("insert into team values(default, $1, $2, $3, $4, $5) returning team.id as id", [teamName, req.session.userId, astCoach, teamCode, description])
         .then(function(result) {
+            if (req.session.teamsCoached) {
+                req.session.teamsCoached.push(result.id);
+            } else {
+                req.session.teamsCoached = [result.id];
+            }
             var response = {
                 message: 'successTeam',
                 id: result.id
