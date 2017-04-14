@@ -200,7 +200,6 @@ app.get('/team/:id', function(req, res, next) {
     .then(function(results){
         var isCoach = false;
         req.session.teamName = results.teamname;
-        console.log('Current team ' + req.session.teamName);
         if (req.session.userId === results.coachid){
             isCoach = true;
         }
@@ -300,15 +299,24 @@ app.get('/messages/:id', function(req, res, next) {
 
 //Team Photos page
 app.get('/photos/:id', function(req, res, next) {
+    var id = req.params.id;
     db.any(`select path, parentId, date from photo where teamId = $1`,req.session.teamId)
-        .then(function(results) {
-            res.render('photos.hbs', {
-                photos: results,
-                teamName: req.session.teamName
-            });
-
-    }).catch(function(err){
-        console.log(err.message);
+        .then(function(results){
+          results.forEach(function(item){item.date = item.date.toDateString();});
+          var isCoach;
+          if (req.session.teamsCoached.indexOf(parseInt(id)) > -1) {
+              isCoach = true;
+          } else {
+              isCoach = false;
+          }
+          res.render('photos.hbs',{
+            id: id,
+            photos: results,
+            teamName: req.session.teamName,
+            isCoach: isCoach
+          });
+        }).catch(function(err){
+            console.log(err.message);
     });
 });
 
@@ -417,5 +425,5 @@ function fixTime(time){
 
 // Start server
 app.listen(5000, function() {
-    console.log('Example app listening on port 3000!');
+    console.log('Example app listening on port 5000!');
 });
