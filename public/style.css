@@ -11,6 +11,10 @@ body {
     background-color: white;
     width: 100%;
     float: left;
+    height: 75px;
+}
+.dropdown {
+    display: none;
 }
 #logo {
     display: block;
@@ -120,6 +124,10 @@ input:-webkit-autofill {
     line-height: 27px;
     letter-spacing: 0.01em;
 }
+.clearfix {
+    clear: both;
+}
+
 
 /* Footer */
 .footer {
@@ -390,6 +398,13 @@ tr:nth-child(even) {
 }
 
 
+
+/****************************
+    NAV DROP DOWN
+ *****************************/
+
+
+
 /****************************
     SWEET ALERT STYLES
  *****************************/
@@ -448,11 +463,40 @@ tr:nth-child(even) {
     .myHomeLink {
         text-align: center;
     }
+    .signUpInfo {
+        display: none;
+    }
+    .dropdown {
+        display: block;
+    }
+    .dropdown-menu {
+        position: absolute;
+        top: 72px;
+        left: 70%;
+        padding: 28px;
+    }
+    .dropdown-menu li {
+        text-align: center;
+    }
+    .dropdown-menu input {
+        margin: 10px auto;
+        padding: 10px;
+    }
+    .dropdown img {
+        width: 42px;
+        float: right;
+        position: absolute;
+        top: 14px;
+        left: 92%;
+    }
 }
 
 
 /* iPhone 6 plus */
 @media screen and (max-width: 414px) {
+    .background {
+        display: none;
+    }
     #logo, .signUp {
         float: none;
     }
@@ -467,12 +511,12 @@ tr:nth-child(even) {
         padding: 0px 0px 5px 11px;
     }
     .headline {
-        font-size: 53px;
-        top: 21%;
-        left: 27%;
+        font-size: 47px;
+        top: 13%;
+        left: 34%;
     }
     .tagline {
-        top: 31%;
+        top: 22%;
         left: 43%;
         width: 200px;
         font-size: 13px;
@@ -492,7 +536,7 @@ tr:nth-child(even) {
     }
     .infoHeading {
         margin-bottom: 5px;
-        font-size: 20px;
+        font-size: 17px;
     }
     .info p {
         font-size: 12px;
@@ -527,22 +571,54 @@ tr:nth-child(even) {
     .photosUl {
         padding:0;
     }
+    .dropdown img {
+        left: 86%;
+    }
+    .dropdown-menu {
+        left: 44%;
+    }
 }
 
 
 /* iphone 6 */
 @media screen and (max-width: 375px) {
+    .headline {
+        font-size: 39px;
+        top: 15%;
+        left: 36%;
+    }
+    .tagline {
+        font-size: 14px;
+        top: 23%;
+        left: 39%;
+    }
     .teamInfo {
         padding: 20px;
     }
     .eachMessage p, .eachEvent p {
         font-size: 13px;
     }
+    .dropdown-menu {
+        left: 38%;
+    }
 }
 
 
 /* iphone 5 */
 @media screen and (max-width: 320px) {
+    .headline {
+        left: 28%;
+        top: 18%;
+    }
+    .tagline {
+        top: 27%;
+    }
+    .dropdown-menu {
+        left: 27%;
+    }
+    .dropdown img {
+        left: 82%;
+    }
     td, th {
         padding: 5px;
         font-size: 12px;
@@ -550,4 +626,19 @@ tr:nth-child(even) {
     .messageBoard p {
         line-height: 21px;
     }
+    .iconImage {
+        margin-top: 16px;
+        height: 75px;
+        margin-left: -10px;
+    }
+    .icon, .info {
+        height: 230px;
+    }
+    .infoHeading {
+        font-size: 14px;
+    }
+    .info p {
+        margin-top: 12px;
+    }
+
 }

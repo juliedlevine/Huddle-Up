@@ -2,49 +2,77 @@
 
 <div class="nav">
     <h3 id="logo">HuddleUp</h3>
-    <form method="post">
+    <form method="post" class="signUpInfo">
         <div class="signUp">
-            <p>Don't have an account? <a href="/signUp" id="#signUp">Sign Up!</a></p>
+            <p>Don't have an account? <a href="/signUp" id="signUp">Sign Up!</a></p>
         </div>
         <div class="loginForm">
             <input class = "email" type="text" name="email" value="Email">
             <input class = "password" type="password" name="password" value="Password">
-            <input type="submit" name="" value="SUBMIT" class="submitButton" id = "submitLogin">
+            <input type="submit" name="" value="SUBMIT" class="submitButton submitLogin">
         </div>
     </form>
 </div>
+
+<div class="dropdown">
+    <img src="menu.png" alt="" class="dropdown-toggle" data-toggle="dropdown">
+    <ul class="dropdown-menu">
+        <li><input class="emailDropdown" type="text" name="emailDropdown" value="Email"></li>
+        <li><input class="passwordDropdown" type="password" name="passwordDropdown" value="Password"></li>
+        <li><input type="submit" name="" value="SUBMIT" class="submitButton submitLoginDropdown"></li>
+        <li>
+            <div class="signUp">
+                <p>Don't have an account?</p>
+                <a href="/signUp" class="signUp">Sign Up!</a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
 
 <div class="main">
     <p class="tagline">Team Management - simplifed. Create your free account today and start managing your teams!</p>
     <h1 class="headline">HuddleUp</h1>
 </div>
 
-<div class="roster">
-    <div class="icon">
-        <img src="/contact-dark.svg" alt="Contact Image" class="iconImage">
+<div class="appInfo">
+    <div class="roster">
+        <div class="icon">
+            <img src="/contact-dark.svg" alt="Contact Image" class="iconImage">
+        </div>
+        <div class="info right">
+            <h3 class="infoHeading">Team Roster</h3>
+            <p>Team Roster Text Here. Keep in touch with all your teams with HuddleUp's message application. You can even get real time text messages when another parent or coach posts a message.</p>
+        </div>
     </div>
-    <div class="info right">
-        <h3 class="infoHeading">Team Roster</h3>
-        <p>Team Roster Text Here. Keep in touch with all your teams with HuddleUp's message application. You can even get real time text messages when another parent or coach posts a message.</p>
-    </div>
-</div>
+    <div class="clearfix">
 
-<div class="scheduling">
-    <div class="info">
-        <h3 class="infoHeading">Scheduling</h3>
-        <p>Scheduling text here. Keep in touch with all your teams with HuddleUp's message application. You can even get real time text messages when another parent or coach posts a message.</p>
     </div>
-    <div class="icon right">
-        <img src="/calendar-dark.svg" alt="Contact Image" class="iconImage">
-    </div>
-</div>
 
-<div class="communication">
-    <div class="icon">
-        <img src="/message-dark.svg" alt="Contact Image" class="iconImage">
+    <div class="scheduling">
+        <div class="info">
+            <h3 class="infoHeading">Scheduling</h3>
+            <p>Scheduling text here. Keep in touch with all your teams with HuddleUp's message application. You can even get real time text messages when another parent or coach posts a message.</p>
+        </div>
+        <div class="icon right">
+            <img src="/calendar-dark.svg" alt="Contact Image" class="iconImage">
+        </div>
     </div>
-    <div class="info right">
-        <h3 class="infoHeading">Communication</h3>
-        <p>Keep in touch with all your teams with HuddleUp's message application. You can even get real time text messages when another parent or coach posts a message.</p>
+    <div class="clearfix">
+
+    </div>
+    <div class="communication">
+        <div class="icon">
+            <img src="/message-dark.svg" alt="Contact Image" class="iconImage">
+        </div>
+        <div class="info right">
+            <h3 class="infoHeading">Communication</h3>
+            <p>Keep in touch with all your teams with HuddleUp's message application. You can even get real time text messages when another parent or coach posts a message.</p>
+        </div>
+    </div>
+
+    <div class="clearfix">
+
     </div>
 </div>

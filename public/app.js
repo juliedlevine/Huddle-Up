@@ -66,7 +66,7 @@ $(document).ready(function() {
     }
 
     // Submit login button click
-    $('#submitLogin').click(function(event) {
+    $('.submitLogin').click(function(event) {
         event.preventDefault();
         $.ajax({
             url: "/submitLogin",
@@ -74,6 +74,27 @@ $(document).ready(function() {
             data: {
                 email: $('.email').val(),
                 password: $('.password').val(),
+            }
+        })
+        .then(function(response) {
+            console.log('response: ' + response);
+            check(response);
+
+        })
+        .catch(function(err) {
+            console.log(err.message);
+        });
+    });
+
+    // Submit login dropdown button click
+    $('.submitLoginDropdown').click(function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: "/submitLogin",
+            type: "POST",
+            data: {
+                email: $('.emailDropdown').val(),
+                password: $('.passwordDropdown').val(),
             }
         })
         .then(function(response) {
