@@ -103,6 +103,7 @@ input:-webkit-autofill {
     text-align: center;
     font-family: 'Graduate', cursive;
 }
+
 .icon {
     background-color: white;
     /*background-color: #1C2027;*/
@@ -113,21 +114,12 @@ input:-webkit-autofill {
 }
 .icon, .info {
     height: 331px;
-    display: inline-block;
-    width: 50%;
-    padding: 84px;
-}
-.right {
-    float: right;
+    padding: 65px;
 }
 .info p {
     line-height: 27px;
     letter-spacing: 0.01em;
 }
-.clearfix {
-    clear: both;
-}
-
 
 /* Footer */
 .footer {
@@ -277,6 +269,8 @@ body > div.teamNav > ul > li.selected > a {
     margin-left: 4px;
     display: inline-block;
 }
+
+
 /****************************
         TEAM ROSTER
  *****************************/
@@ -399,11 +393,6 @@ tr:nth-child(even) {
 
 
 
-/****************************
-    NAV DROP DOWN
- *****************************/
-
-
 
 /****************************
     SWEET ALERT STYLES
@@ -416,7 +405,7 @@ tr:nth-child(even) {
 
 
 /****************************
-    SWEET ALERT STYLES
+    PHOTOS
  *****************************/
 
 #uploadWidget > div > span:before {
@@ -446,15 +435,18 @@ tr:nth-child(even) {
 *****************************/
 @media screen and (max-width: 900px) {
     .headline {
+        font-size: 84px;
         left: 41%;
     }
     .tagline {
-        left: 52%;
+        left: 50%;
+        top: 26%;
     }
     .signUpForm {
         width: 85%;
     }
 }
+
 @media screen and (max-width: 791px) {
     .headline {
         font-size: 80px;
@@ -462,21 +454,25 @@ tr:nth-child(even) {
     .tagline {
         left: 50%;
     }
+
 }
  /* iPad */
 @media screen and (max-width: 768px) {
+    .icon, .info {
+        height: 250px;
+        padding: 38px 48px;
+        text-align: center;
+    }
+    .iconImage {
+        height: 112px;
+        margin-top: 20px;
+    }
     .headline {
         font-size: 66px;
     }
     .tagline {
-        top: 27%;
-        left: 47%;
-    }
-    .icon, .info {
-        padding: 54px;
-    }
-    .iconImage {
-        margin-top: 19px;
+        top: 24%;
+        left: 43%;
     }
     .myHomeLink {
         text-align: center;
@@ -505,7 +501,21 @@ tr:nth-child(even) {
         float: right;
         position: absolute;
         top: 14px;
-        left: 92%;
+        left: 89%;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    /* Info boxes */
+    .roster, .scheduling, .communication {
+        display: flex;
+        flex-direction: column;
+    }
+    .scheduling .icon {
+        order: 1;
+    }
+    .scheduling .info {
+        order: 2;
     }
 }
 
@@ -514,25 +524,22 @@ tr:nth-child(even) {
         font-size: 55px;
     }
     .tagline {
-        top: 27%;
-        left: 43%;
+        top: 22%;
+        left: 41%;
         font-size: 15px;
     }
     .dropdown-menu {
         left: 61%;
     }
-}
 
+}
 @media screen and (max-width: 550px) {
     .headline {
-        font-size: 51px;
+        font-size: 45px;
     }
     .tagline{
         width: 250px;
         font-size: 14px;
-    }
-    .icon, .info {
-        padding: 34px;
     }
 }
 
@@ -567,25 +574,6 @@ tr:nth-child(even) {
     }
     .main {
         height: 400px;
-    }
-    .icon, .info {
-        height: 200px;
-    }
-    .iconImage {
-        margin-top: 4px;
-        height: 85px;
-    }
-    .info {
-        padding: 10px;
-    }
-    .infoHeading {
-        margin-bottom: 5px;
-        font-size: 17px;
-    }
-    .info p {
-        font-size: 12px;
-        line-height: 17px;
-        text-align: center;
     }
     .teamNav li {
         display: block;
@@ -629,12 +617,18 @@ tr:nth-child(even) {
     .headline {
         font-size: 39px;
         top: 15%;
-        left: 36%;
+        left: 35%;
     }
     .tagline {
         font-size: 14px;
         top: 23%;
         left: 39%;
+    }
+    .icon, .info {
+        padding: 24px 42px;
+    }
+    .iconImage {
+        margin-top: 37px;
     }
     .teamInfo {
         padding: 20px;
@@ -657,11 +651,19 @@ tr:nth-child(even) {
     .tagline {
         top: 27%;
     }
+    .iconImage {
+        height: 112px;
+        margin-top: 56px;
+        height: 91px;
+    }
     .dropdown-menu {
         left: 27%;
     }
     .dropdown img {
         left: 82%;
+    }
+    .icon, .info {
+        padding: 23px 18px;
     }
     td, th {
         padding: 5px;
@@ -669,20 +671,6 @@ tr:nth-child(even) {
     }
     .messageBoard p {
         line-height: 21px;
-    }
-    .iconImage {
-        margin-top: 16px;
-        height: 75px;
-        margin-left: -10px;
-    }
-    .icon, .info {
-        height: 230px;
-    }
-    .infoHeading {
-        font-size: 14px;
-    }
-    .info p {
-        margin-top: 12px;
     }
 
 }
