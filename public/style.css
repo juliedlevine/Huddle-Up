@@ -78,7 +78,7 @@ input:-webkit-autofill {
     margin: 0;
     position: absolute;
     top: 15%;
-    left: 46%;
+    left: 52%;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
 }
@@ -88,7 +88,7 @@ input:-webkit-autofill {
     font-size: 16px;
     position: absolute;
     top: 28%;
-    left: 55%;
+    left: 58%;
     text-align: center;
 }
 

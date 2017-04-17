@@ -137,6 +137,9 @@ $(document).ready(function() {
         event.preventDefault();
         swal({
         title: 'Add a new Event',
+        imageUrl: '/cal.png',
+        imageWidth: 100,
+        imageHeight: 100,
         showCancelButton: true,
         html:
             '<p class="swalLabel">Title:</p>' +
@@ -342,6 +345,9 @@ $(document).ready(function() {
         swal({
         title: 'Create a Team',
         showCancelButton: true,
+        imageUrl: '/jersey.png',
+        imageWidth: 100,
+        imageHeight: 100,
         html:
             '<p class="swalLabel">Team Name:</p>' +
             '<input id="swal-input1" class="swal2-input teamName">' +
