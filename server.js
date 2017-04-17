@@ -116,8 +116,6 @@ app.post('/signUpInsert', function(req, res, next) {
     } else {
         bcrypt.hash(password, 10)
             .then(function(encrypted) {
-                console.log('password has been encrypted, going to insert.');
-                console.log('server side email: ' + email);
                 return db.one("INSERT into parent values (default, $1, $2, $3, $4, $5, $6) returning parent.id as id", [first, last, cellPhone, homePhone, encrypted, email]);
             })
             .then(function(result) {
@@ -416,7 +414,7 @@ app.post('/team/addMessage', function(req, res, next) {
 app.post('/sendTextMessage', function(req, res) {
     var teamId = req.body.teamId;
     var textMessage = req.body.textMessage;
-    var testNumbers = ['+14049315804','+14049315804'];
+    var testNumbers = ['+14049315804', '+15046169063', '+14044058848', '+14047047634'];
     testNumbers.forEach(function(cellPhoneNumber){
       twilioClient.sms.messages.create({
           to:cellPhoneNumber,

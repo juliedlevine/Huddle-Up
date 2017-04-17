@@ -110,7 +110,7 @@ $(document).ready(function() {
     // Sign up button click
     $('.signUpButton').click(function(event) {
         event.preventDefault();
-        console.log('did i click this??');
+        console.log('Clicked sign up button.');
         $.ajax({
             url: "/signUpInsert",
             type: "POST",
