@@ -128,6 +128,13 @@ input:-webkit-autofill {
     height: 200px;
     background-color: #eaebed;
 }
+.footer img {
+    padding-bottom: 20px;
+    display: block;
+    margin: 0 auto;
+    width: 45px;
+}
+
 
 
 /****************************
@@ -172,7 +179,7 @@ input:-webkit-autofill {
     font-family: 'Graduate', cursive;
 }
 .dashboard {
-    min-height: 400px;
+    min-height: 250px;
     margin: 0 auto;
     display: block;
     text-align: center;

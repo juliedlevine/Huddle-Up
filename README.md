@@ -6,10 +6,10 @@
 HuddleUp is a site used to manage little league sports teams. It allows coaches to create and manage teams and communicate events and information to parents. Parents can log in with a unique code from the coach and view the upcoming team schedule, post messages and photos and view the team roster.
 
 ## Team members
-* Todd Briley
-* Julie Dyer
-* James Marion
-* Jonathan Shaw
+* <a href="https://github.com/toddbri">Todd Briley</a>
+* <a href="https://github.com/juliemdyer">Julie Dyer</a>
+* <a href="https://github.com/jwmarion">James Marion</a>
+* <a href="https://github.com/jonshaw2">Jonathan Shaw</a>
 
 ## Languages and Technologies used
 * Node.js
