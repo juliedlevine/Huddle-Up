@@ -101,7 +101,6 @@ app.post('/submitLogin', function(req, res, next) {
 
 // Sign up, click sign up submit button route
 app.post('/signUpInsert', function(req, res, next) {
-    console.log('Just got to server from ajax');
     var first = req.body.first;
     var last = req.body.last;
     var email = req.body.email;
