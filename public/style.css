@@ -168,7 +168,7 @@ input:-webkit-autofill {
 }
 .background {
     clear: both;
-    height: 370px;
+    height: 275px;
     background-image: url('/ball6.jpg');
     background-size: cover;
     background-position: top;
@@ -288,10 +288,10 @@ body > div.teamNav > ul > li.selected > a {
 .rosterTable {
     border-collapse: collapse;
     width: 100%;
+    margin-bottom: 50px;
 }
 
 td, th {
-    border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
@@ -444,15 +444,33 @@ tr:nth-child(even) {
 /****************************
     MEDIA QUERIES
 *****************************/
-
+@media screen and (max-width: 900px) {
+    .headline {
+        left: 41%;
+    }
+    .tagline {
+        left: 52%;
+    }
+    .signUpForm {
+        width: 85%;
+    }
+}
+@media screen and (max-width: 791px) {
+    .headline {
+        font-size: 80px;
+    }
+    .tagline {
+        left: 50%;
+    }
+}
  /* iPad */
 @media screen and (max-width: 768px) {
     .headline {
         font-size: 66px;
     }
     .tagline {
-        top: 23%;
-        left: 49%;
+        top: 27%;
+        left: 47%;
     }
     .icon, .info {
         padding: 54px;
@@ -491,6 +509,32 @@ tr:nth-child(even) {
     }
 }
 
+@media screen and (max-width: 631px) {
+    .headline {
+        font-size: 55px;
+    }
+    .tagline {
+        top: 27%;
+        left: 43%;
+        font-size: 15px;
+    }
+    .dropdown-menu {
+        left: 61%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .headline {
+        font-size: 51px;
+    }
+    .tagline{
+        width: 250px;
+        font-size: 14px;
+    }
+    .icon, .info {
+        padding: 34px;
+    }
+}
 
 /* iPhone 6 plus */
 @media screen and (max-width: 414px) {

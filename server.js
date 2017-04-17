@@ -100,7 +100,8 @@ app.post('/submitLogin', function(req, res, next) {
 });
 
 // Sign up, click sign up submit button route
-app.post('/signUp', function(req, res, next) {
+app.post('/signUpInsert', function(req, res, next) {
+    console.log('Just got to server from ajax');
     var first = req.body.first;
     var last = req.body.last;
     var email = req.body.email;
@@ -115,6 +116,8 @@ app.post('/signUp', function(req, res, next) {
     } else {
         bcrypt.hash(password, 10)
             .then(function(encrypted) {
+                console.log('password has been encrypted, going to insert.');
+                console.log('server side email: ' + email);
                 return db.one("INSERT into parent values (default, $1, $2, $3, $4, $5, $6) returning parent.id as id", [first, last, cellPhone, homePhone, encrypted, email]);
             })
             .then(function(result) {
@@ -250,7 +253,7 @@ app.get('/events/:id', function(req, res, next) {
     var id = req.params.id;
     db.one(`SELECT teamname, coachid FROM team WHERE team.id = $1`, id)
         .then(function(teamInfo) {
-            return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1 and date > now() order by date;`, id)];
+            return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1 and date > now() order by date, starttime;`, id)];
         })
         .spread(function(teamInfo, results) {
             results.forEach(function(item){item.date = item.date.toDateString();item.starttime = fixTime(item.starttime);item.endtime = fixTime(item.endtime);});

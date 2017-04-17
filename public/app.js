@@ -108,9 +108,11 @@ $(document).ready(function() {
     });
 
     // Sign up button click
-    $('#signUpButton').click(function() {
+    $('.signUpButton').click(function(event) {
+        event.preventDefault();
+        console.log('did i click this??');
         $.ajax({
-            url: "/signUp",
+            url: "/signUpInsert",
             type: "POST",
             data: {
                 first: $('.first').val(),
