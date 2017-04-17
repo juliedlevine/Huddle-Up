@@ -1,6 +1,6 @@
 # HuddleUp
 ---
-## [Live Demo](http://letshuddleup.net)
+## [Live Demo](http://www.letshuddleup.net)
 
 ## What It Is
 HuddleUp is a site used to manage little league sports teams. It allows coaches to create and manage teams and communicate events and information to parents. Parents can log in with a unique code from the coach and view the upcoming team schedule, post messages and photos and view the team roster.
