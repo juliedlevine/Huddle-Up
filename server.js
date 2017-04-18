@@ -14,7 +14,7 @@ var db = pgp({
     user: config.user,
     password: config.password
 });
-const sessionls = require('express-session');
+const session = require('express-session');
 const bcrypt = require('bcrypt');
 app.set('view engine', 'hbs');
 var secrets = require('./config/secret.js');
