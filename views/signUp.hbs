@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 
 <div class="nav navSignUp">
-    <h3 id="logo">HuddleUp</h3>
+    <h3 id="logo"><a href="/" class="logoLink">HuddleUp</a></h3>
 </div>
 
+<div class="dropdown">
+    <img src="menu.png" alt="" class="dropdown-toggle" data-toggle="dropdown">
+    <ul class="dropdown-menu">
+        <li><input class="emailDropdown" type="text" name="emailDropdown" value="Email"></li>
+        <li><input class="passwordDropdown" type="password" name="passwordDropdown" value="Password"></li>
+        <li><input type="submit" name="" value="SUBMIT" class="submitButton submitLoginDropdown"></li>
+        <li>
+            <div class="signUp">
+                <p>Don't have an account?</p>
+                <a href="/signUp" class="signUp">Sign Up!</a>
+            </div>
+        </li>
+    </ul>
+</div>
 
 <div class="background">
 
 </div>
+
 <div class="dashboard signUpForm">
     <h1 class="create">Create an Account</h1>
-    <form action="/signUp" method="POST" class="new_user">
+    <form method="post" class="new_user">
         <div class="form-group">
             <label>First Name:</label>
             <input type="text" name="first" class="form-control first">
@@ -46,8 +61,8 @@
             <input type="password" name="confirmPassword" class="form-control  confirmPassword">
         </div>
 
-        <button type="button" name="button" id="signUpButton" class="submitButton">Submit</button>
-
+        <!-- <button class="submitButton signUpButton">Submit</button> -->
+        <input type="submit" name="" value="SUBMIT" class="submitButton signUpButton">
         <br>
     </form>
 

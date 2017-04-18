@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <div class="nav navUser">
-    <h3 id="logo">HuddleUp</h3>
+    <h3 id="logo"><a href="/" class="logoLink">HuddleUp</a></h3>
     <div class="welcome">
         <p>Welcome, {{session.user}}!</p>
         {{#if session.user}}
@@ -12,9 +12,11 @@
 
 <div class="background">
 </div>
+
+
 <div class="teamNav">
     <ul>
-        <li class="selected"><a class="selected" href="/userHome">Home</a></li>
+        <li class="selected"><a class="selected" href="/team/{{id}}">Team Home</a></li>
         <li><a href="/roster/{{id}}">Roster</a></li>
         <li><a href="/events/{{id}}">Events</a></li>
         <li><a href="/messages/{{id}}">Messages</a></li>
@@ -25,9 +27,22 @@
     </ul>
 </div>
 
+<div class="myHomeLink">
+    <img src="/trophy.png" alt="Trophy Image" class="trophyHome">
+    <a href="/userHome">My Homepage</a>
+</div>
+
 <div class="dashboard">
     <h1 class="myTeams">{{team}}</h1>
     <h3 class="myTeams">Team Home</h3>
+
+    <div class="starDiv">
+        {{#if coach}}
+            <img src="/star.png" alt="star image" class="starTeamHome">
+            <p class="coach">You coach this team</p>
+        {{/if}}
+    </div>
+
     <div class="teamInfo">
         {{#if coach}}
             <p><span class="bold">Team Code:</span> {{teamcode}}</p>

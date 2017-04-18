@@ -9,10 +9,10 @@ var twilioConfig = require('./config/twilio-config.js');
 var twilioClient = twilioConfig.twilioClient;
 var config = require('./config/dbc.js');
 var db = pgp({
-  host: config.host,
-  database: config.database,
-  user: config.user,
-  password: config.password
+    host: config.host,
+    database: config.database,
+    user: config.user,
+    password: config.password
 });
 const sessionls = require('express-session');
 const bcrypt = require('bcrypt');
@@ -36,7 +36,6 @@ var storage = multer.diskStorage({
    cb(null, file.fieldname + '-' + Date.now()+ '.' +extension);
   }
 });
-
 var upload = multer({ storage: storage });
 
 
@@ -103,7 +102,7 @@ app.post('/submitLogin', function(req, res, next) {
 });
 
 // Sign up, click sign up submit button route
-app.post('/signUp', function(req, res, next) {
+app.post('/signUpInsert', function(req, res, next) {
     var first = req.body.first;
     var last = req.body.last;
     var email = req.body.email;
@@ -253,7 +252,7 @@ app.get('/events/:id', function(req, res, next) {
     var id = req.params.id;
     db.one(`SELECT teamname, coachid FROM team WHERE team.id = $1`, id)
         .then(function(teamInfo) {
-            return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1 and date > now() order by date;`, id)];
+            return [teamInfo, db.any(`SELECT * FROM events JOIN team on events.teamid = team.id WHERE team.id = $1 and date > now() order by date, starttime;`, id)];
         })
         .spread(function(teamInfo, results) {
             results.forEach(function(item){item.date = item.date.toDateString();item.starttime = fixTime(item.starttime);item.endtime = fixTime(item.endtime);});
@@ -416,7 +415,7 @@ app.post('/team/addMessage', function(req, res, next) {
 app.post('/sendTextMessage', function(req, res) {
     var teamId = req.body.teamId;
     var textMessage = req.body.textMessage;
-    var testNumbers = ['+14049315804','+14049315804'];
+    var testNumbers = ['+14049315804', '+15046169063', '+14044058848', '+14047047634'];
     testNumbers.forEach(function(cellPhoneNumber){
       twilioClient.sms.messages.create({
           to:cellPhoneNumber,

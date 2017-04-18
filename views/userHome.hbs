@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <div class="nav navUser">
-    <h3 id="logo">HuddleUp</h3>
+    <h3 id="logo"><a href="/" class="logoLink">HuddleUp</a></h3>
     <div class="welcome">
         <p>Welcome, {{session.user}}!</p>
         {{#if session.user}}
@@ -15,6 +15,7 @@
 </div>
 <div class="teamNav">
     <ul>
+        <li class="selected"><a class="selected">My Homepage</a></li>
         <li><a href="#" id="createTeamButton">Create Team</a></li>
         <li><a href="#" class="joinTeamButton">Join Team</a></li>
     </ul>

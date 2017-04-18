@@ -66,7 +66,7 @@ $(document).ready(function() {
     }
 
     // Submit login button click
-    $('#submitLogin').click(function(event) {
+    $('.submitLogin').click(function(event) {
         event.preventDefault();
         $.ajax({
             url: "/submitLogin",
@@ -86,10 +86,33 @@ $(document).ready(function() {
         });
     });
 
-    // Sign up button click
-    $('#signUpButton').click(function() {
+    // Submit login dropdown button click
+    $('.submitLoginDropdown').click(function(event) {
+        event.preventDefault();
         $.ajax({
-            url: "/signUp",
+            url: "/submitLogin",
+            type: "POST",
+            data: {
+                email: $('.emailDropdown').val(),
+                password: $('.passwordDropdown').val(),
+            }
+        })
+        .then(function(response) {
+            console.log('response: ' + response);
+            check(response);
+
+        })
+        .catch(function(err) {
+            console.log(err.message);
+        });
+    });
+
+    // Sign up button click
+    $('.signUpButton').click(function(event) {
+        event.preventDefault();
+        console.log('Clicked sign up button.');
+        $.ajax({
+            url: "/signUpInsert",
             type: "POST",
             data: {
                 first: $('.first').val(),
@@ -114,6 +137,9 @@ $(document).ready(function() {
         event.preventDefault();
         swal({
         title: 'Add a new Event',
+        imageUrl: '/cal.png',
+        imageWidth: 100,
+        imageHeight: 100,
         showCancelButton: true,
         html:
             '<p class="swalLabel">Title:</p>' +
@@ -319,6 +345,9 @@ $(document).ready(function() {
         swal({
         title: 'Create a Team',
         showCancelButton: true,
+        imageUrl: '/jersey.png',
+        imageWidth: 100,
+        imageHeight: 100,
         html:
             '<p class="swalLabel">Team Name:</p>' +
             '<input id="swal-input1" class="swal2-input teamName">' +

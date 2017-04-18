@@ -11,6 +11,10 @@ body {
     background-color: white;
     width: 100%;
     float: left;
+    height: 75px;
+}
+.dropdown {
+    display: none;
 }
 #logo {
     display: block;
@@ -74,7 +78,7 @@ input:-webkit-autofill {
     margin: 0;
     position: absolute;
     top: 15%;
-    left: 46%;
+    left: 52%;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: black;
 }
@@ -84,7 +88,7 @@ input:-webkit-autofill {
     font-size: 16px;
     position: absolute;
     top: 28%;
-    left: 55%;
+    left: 58%;
     text-align: center;
 }
 
@@ -99,6 +103,7 @@ input:-webkit-autofill {
     text-align: center;
     font-family: 'Graduate', cursive;
 }
+
 .icon {
     background-color: white;
     /*background-color: #1C2027;*/
@@ -109,12 +114,7 @@ input:-webkit-autofill {
 }
 .icon, .info {
     height: 331px;
-    display: inline-block;
-    width: 50%;
-    padding: 84px;
-}
-.right {
-    float: right;
+    padding: 65px;
 }
 .info p {
     line-height: 27px;
@@ -128,11 +128,24 @@ input:-webkit-autofill {
     height: 200px;
     background-color: #eaebed;
 }
+.footer img {
+    padding-bottom: 20px;
+    display: block;
+    margin: 0 auto;
+    width: 45px;
+}
+
 
 
 /****************************
         USER HOME
  *****************************/
+.logoLink {
+    color: black;
+}
+.logoLink:hover {
+    text-decoration: none;
+}
 .navUser {
     padding-top: 20px;
 }
@@ -154,7 +167,7 @@ input:-webkit-autofill {
 }
 .background {
     clear: both;
-    height: 370px;
+    height: 275px;
     background-image: url('/ball6.jpg');
     background-size: cover;
     background-position: top;
@@ -166,8 +179,7 @@ input:-webkit-autofill {
     font-family: 'Graduate', cursive;
 }
 .dashboard {
-    padding-top: 40px;
-    min-height: 475px;
+    min-height: 250px;
     margin: 0 auto;
     display: block;
     text-align: center;
@@ -242,6 +254,29 @@ input:-webkit-autofill {
 body > div.teamNav > ul > li.selected > a {
     color: black;
 }
+.trophyHome {
+    width: 30px;
+}
+.myHomeLink {
+    margin: 20px;
+}
+.myHomeLink a:hover {
+    text-decoration: none;
+}
+.starDiv {
+    margin-top: -15px;
+    margin-left: -11px;
+}
+.starTeamHome {
+    margin-top: -4px;
+    width: 20px;
+    display: inline-block;
+}
+.coach {
+    margin-left: 4px;
+    display: inline-block;
+}
+
 
 /****************************
         TEAM ROSTER
@@ -254,10 +289,10 @@ body > div.teamNav > ul > li.selected > a {
 .rosterTable {
     border-collapse: collapse;
     width: 100%;
+    margin-bottom: 50px;
 }
 
 td, th {
-    border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
@@ -364,6 +399,8 @@ tr:nth-child(even) {
 }
 
 
+
+
 /****************************
     SWEET ALERT STYLES
  *****************************/
@@ -375,7 +412,7 @@ tr:nth-child(even) {
 
 
 /****************************
-    SWEET ALERT STYLES
+    PHOTOS
  *****************************/
 
 #uploadWidget > div > span:before {
@@ -396,4 +433,251 @@ tr:nth-child(even) {
     width: 400px;
     border-radius: 5px;
     margin: 0 10px 30px 10px;
+}
+
+
+
+/****************************
+    MEDIA QUERIES
+*****************************/
+@media screen and (max-width: 900px) {
+    .headline {
+        font-size: 84px;
+        left: 41%;
+    }
+    .tagline {
+        left: 50%;
+        top: 26%;
+    }
+    .signUpForm {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 791px) {
+    .headline {
+        font-size: 80px;
+    }
+    .tagline {
+        left: 50%;
+    }
+
+}
+ /* iPad */
+@media screen and (max-width: 768px) {
+    .icon, .info {
+        height: 250px;
+        padding: 38px 48px;
+        text-align: center;
+    }
+    .iconImage {
+        height: 112px;
+        margin-top: 20px;
+    }
+    .headline {
+        font-size: 66px;
+    }
+    .tagline {
+        top: 24%;
+        left: 43%;
+    }
+    .myHomeLink {
+        text-align: center;
+    }
+    .signUpInfo {
+        display: none;
+    }
+    .dropdown {
+        display: block;
+    }
+    .dropdown-menu {
+        position: absolute;
+        top: 72px;
+        left: 70%;
+        padding: 28px;
+    }
+    .dropdown-menu li {
+        text-align: center;
+    }
+    .dropdown-menu input {
+        margin: 10px auto;
+        padding: 10px;
+    }
+    .dropdown img {
+        width: 42px;
+        float: right;
+        position: absolute;
+        top: 14px;
+        left: 89%;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    /* Info boxes */
+    .roster, .scheduling, .communication {
+        display: flex;
+        flex-direction: column;
+    }
+    .scheduling .icon {
+        order: 1;
+    }
+    .scheduling .info {
+        order: 2;
+    }
+}
+
+@media screen and (max-width: 631px) {
+    .headline {
+        font-size: 55px;
+    }
+    .tagline {
+        top: 22%;
+        left: 41%;
+        font-size: 15px;
+    }
+    .dropdown-menu {
+        left: 61%;
+    }
+
+}
+@media screen and (max-width: 550px) {
+    .headline {
+        font-size: 45px;
+    }
+    .tagline{
+        width: 250px;
+        font-size: 14px;
+    }
+}
+
+/* iPhone 6 plus */
+@media screen and (max-width: 414px) {
+    .background {
+        display: none;
+    }
+    #logo, .signUp {
+        float: none;
+    }
+    .email, .password {
+        border: 1px solid gray;
+    }
+    .loginForm input {
+        padding: 9px 5px;
+        font-size: 13px;
+    }
+    .signUp p {
+        padding: 0px 0px 5px 11px;
+    }
+    .headline {
+        font-size: 47px;
+        top: 13%;
+        left: 34%;
+    }
+    .tagline {
+        top: 22%;
+        left: 43%;
+        width: 200px;
+        font-size: 13px;
+    }
+    .main {
+        height: 400px;
+    }
+    .teamNav li {
+        display: block;
+    }
+    .teamInfo {
+        width: 100%;
+        padding: 20px 40px 40px 55px;
+    }
+    .rosterWrapper {
+        width: 100%;
+    }
+    .myTeams {
+        padding: 10px;
+    }
+    .eventInfo, .eachEvent, .messageBoard, .eachMessage {
+        width: 100%
+    }
+    .eventInfo p, .eachMessage p{
+        font-size: 15px;
+    }
+    .messageBoard {
+        padding: 0;
+    }
+    .eachPhoto img {
+        width: 300px;
+    }
+    .photosUl {
+        padding:0;
+    }
+    .dropdown img {
+        left: 86%;
+    }
+    .dropdown-menu {
+        left: 44%;
+    }
+}
+
+
+/* iphone 6 */
+@media screen and (max-width: 375px) {
+    .headline {
+        font-size: 39px;
+        top: 15%;
+        left: 35%;
+    }
+    .tagline {
+        font-size: 14px;
+        top: 23%;
+        left: 39%;
+    }
+    .icon, .info {
+        padding: 24px 42px;
+    }
+    .iconImage {
+        margin-top: 37px;
+    }
+    .teamInfo {
+        padding: 20px;
+    }
+    .eachMessage p, .eachEvent p {
+        font-size: 13px;
+    }
+    .dropdown-menu {
+        left: 38%;
+    }
+}
+
+
+/* iphone 5 */
+@media screen and (max-width: 320px) {
+    .headline {
+        left: 28%;
+        top: 18%;
+    }
+    .tagline {
+        top: 27%;
+    }
+    .iconImage {
+        height: 112px;
+        margin-top: 56px;
+        height: 91px;
+    }
+    .dropdown-menu {
+        left: 27%;
+    }
+    .dropdown img {
+        left: 82%;
+    }
+    .icon, .info {
+        padding: 23px 18px;
+    }
+    td, th {
+        padding: 5px;
+        font-size: 12px;
+    }
+    .messageBoard p {
+        line-height: 21px;
+    }
+
 }
