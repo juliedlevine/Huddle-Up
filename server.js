@@ -7,7 +7,7 @@ var pgp = require('pg-promise')({promiseLib: Promise});
 const bodyParser = require('body-parser');
 var twilioConfig = require('./config/twilio-config.js');
 var twilioClient = twilioConfig.twilioClient;
-var config = require('./config/dbconfig.js');
+var config = require('./config/dbc.js');
 var db = pgp({
     host: config.host,
     database: config.database,
